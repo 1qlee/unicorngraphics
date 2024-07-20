@@ -1,0 +1,28 @@
+.NavBurger {
+  display: none;
+  @media screen and (max-width: 768px) {
+    display: block;
+  }
+}
+
+.NavBurgerContent {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 64px);
+  padding: var(--space-4) var(--space-2);
+  animation-duration: 250ms;
+  animation-timing-function: ease;
+  background-color: var(--gray-1);
+  overflow-y: auto;
+}
+
+.NavBurgerTrigger {
+  padding: var(--space-4) var(--space-2);
+  border-radius: var(--radius-2);
+  &:hover {
+    background-color: var(--gray-3);
+    cursor: pointer;
+  }
+}

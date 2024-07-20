@@ -1,0 +1,34 @@
+.Hero {
+  position: relative;
+  min-height: calc(300px + 15vw);
+  padding: var(--space-6) 0 var(--space-4);
+}
+
+.HeroWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.HeroImage {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  
+  img { object-fit: cover; }
+}
+
+.HeroContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  max-width: 60ch;
+  height: 100%;
+  margin-right: var(--space-4);
+  margin-bottom: var(--space-6);
+}

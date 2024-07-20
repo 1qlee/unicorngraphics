@@ -1,0 +1,7 @@
+.CaretDown {
+  transition: transform 250ms ease;
+}
+
+[data-state='open'] > .CaretDown {
+  transform: rotate(-180deg);
+}

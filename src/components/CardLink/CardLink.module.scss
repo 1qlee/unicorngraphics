@@ -1,0 +1,6 @@
+.CardLink {
+  border-radius: var(--radius-2);
+  &:hover {
+    background-color: var(--gray-3);
+  }
+}
