@@ -1,5 +1,5 @@
 import {defineType, defineArrayMember} from 'sanity'
-import { Text } from '@radix-ui/themes'
+import { ButtonIcon } from '@radix-ui/react-icons'
 
 /**
  * This is the schema type for block content used in the post document type
@@ -31,6 +31,7 @@ export default defineType({
         {title: 'Heading 3', value: 'h3'},
         {title: 'Heading 4', value: 'h4'},
         {title: 'Quote', value: 'blockquote'},
+        {title: 'Small', value: 'small', component: ({children}) => <small>{children}</small>},
       ],
       lists: [
         { title: 'Bullet', value: 'bullet' },
@@ -72,6 +73,25 @@ export default defineType({
           name: 'alt',
           type: 'string',
           title: 'Alternative Text',
+        }
+      ]
+    }),
+    defineArrayMember({
+      title: 'Button',
+      name: 'button',
+      type: 'object',
+      icon: ButtonIcon,
+      fields: [
+        {
+          name: 'buttonText',
+          type: 'string',
+          title: 'Text',
+        },
+        {
+          name: 'buttonUrl',
+          type: 'string',
+          title: 'URL',
+          description: "Only enter the path, not the full URL. For example, 'about' will link to '/about'.",
         }
       ]
     }),

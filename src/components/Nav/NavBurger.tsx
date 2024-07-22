@@ -9,15 +9,16 @@ import { Cross1Icon, HamburgerMenuIcon } from "@radix-ui/react-icons";
 import { IconButton, Flex, Text, Separator } from "@radix-ui/themes";
 import { SanityDocument } from "next-sanity";
 import { useState } from "react";
+import { PRODUCTS_QUERYResult, SERVICES_QUERYResult } from "@/root/sanity.types";
 
 interface NavBurgerProps {
-  products: SanityDocument[];
-  services: SanityDocument[];
+  products: PRODUCTS_QUERYResult;
+  services: SERVICES_QUERYResult;
 }
 
 interface CollapsibleMenuItemProps {
   category: string;
-  items: SanityDocument[];
+  items: PRODUCTS_QUERYResult | SERVICES_QUERYResult;
 }
 
 function CollapsibleMenuItem({ 
@@ -46,9 +47,10 @@ function CollapsibleMenuItem({
         {items.map(item => (
           <CardLink
             key={item._id}
-            href={`/${category.charAt(0).toLowerCase() + category.slice(1)}/${item.slug.current}`}
+            href={`/${category.charAt(0).toLowerCase() + category.slice(1)}/${item?.slug?.current}`}
             heading={item.title}
             text={item.description}
+            image={item.image}
             hasImg={true}
           />
         ))}

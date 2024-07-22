@@ -7,26 +7,27 @@ import { CaretDownIcon } from "@radix-ui/react-icons";
 import { Flex, Container, Text, Button, Link, Box, Grid, Dialog, TextField, TextArea } from "@radix-ui/themes";
 
 import { urlFor } from "@/sanity/lib/image";
-import { PRODUCTS_QUERY, SERVICES_QUERY, SETTINGS_QUERY } from "@/sanity/lib/queries";
 import { PRODUCTS_QUERYResult, SERVICES_QUERYResult, SETTINGS_QUERYResult } from "@/root/sanity.types";
-import { SanityDocument } from "next-sanity";
-import { sanityFetch } from "@/sanity/lib/client";
 
-async function Nav() {
-  const products = await sanityFetch<PRODUCTS_QUERYResult>({
-    query: PRODUCTS_QUERY,
-  });
-  const settings = await sanityFetch<SETTINGS_QUERYResult>({
-    query: SETTINGS_QUERY,
-  });
-  const services = await sanityFetch<SERVICES_QUERYResult>({ 
-    query: SERVICES_QUERY, 
-  });
+interface NavProps {
+  products: PRODUCTS_QUERYResult;
+  services: SERVICES_QUERYResult;
+  settings: SETTINGS_QUERYResult;
+}
+
+async function Nav({
+  products,
+  services,
+  settings,
+}: NavProps) {
 
   return (
     <nav className={styles.NavBar}>
       <Container
-        px="4"
+        px={{
+          initial: "4",
+          lg: "0",
+        }}
       >
         <Flex
           align="center"
@@ -75,7 +76,7 @@ async function Nav() {
                           key={product._id}
                           href={`/products/${product.slug?.current}`}
                           heading={product.title}
-                          text={product.description}
+                          image={product.image}
                           hasImg={true}
                         />
                       ))}
@@ -104,7 +105,7 @@ async function Nav() {
                           key={service._id}
                           href={`/services/${service.slug?.current}`}
                           heading={service.title}
-                          text={service.description}
+                          image={service.image}
                           hasImg={true}
                         />
                       ))}
@@ -134,13 +135,19 @@ async function Nav() {
             gap="4"
             align="center"
           >
-            {/* <NavBurger 
+            <NavBurger 
               products={products}
               services={services}
-            /> */}
+            />
             <Dialog.Root>
               <Dialog.Trigger>
-                <Button>
+                <Button
+                  mr={{
+                    initial: "4",
+                    
+                    lg: "2",
+                  }}
+                >
                   Contact Us
                 </Button>
               </Dialog.Trigger>

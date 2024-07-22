@@ -3,6 +3,8 @@ import "@/styles/radix-var-overrides.css";
 import '@radix-ui/themes/components.css';
 import '@radix-ui/themes/tokens/base.css';
 import '@radix-ui/themes/tokens/colors/indigo.css';
+import '@radix-ui/themes/tokens/colors/orange.css';
+import '@radix-ui/themes/tokens/colors/lime.css';
 import '@radix-ui/themes/tokens/colors/slate.css';
 import '@radix-ui/themes/utilities.css'; 
 import { Theme } from '@radix-ui/themes';
@@ -10,14 +12,28 @@ import { VisualEditing } from "next-sanity";
 import { draftMode } from "next/headers";
 import { Button, Box, Link } from "@radix-ui/themes";
 import { GeistSans } from 'geist/font/sans';
+import { PRODUCTS_QUERY, SERVICES_QUERY, SETTINGS_QUERY } from "@/sanity/lib/queries";
+import { PRODUCTS_QUERYResult, SERVICES_QUERYResult, SETTINGS_QUERYResult } from "@/root/sanity.types";
+import { sanityFetch } from "@/sanity/lib/client";
 
+import Footer from "@/components/Footer/Footer";
 import Nav from "@/components/Nav/Nav";
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const products = await sanityFetch<PRODUCTS_QUERYResult>({
+    query: PRODUCTS_QUERY,
+  });
+  const settings = await sanityFetch<SETTINGS_QUERYResult>({
+    query: SETTINGS_QUERY,
+  });
+  const services = await sanityFetch<SERVICES_QUERYResult>({
+    query: SERVICES_QUERY,
+  });
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -34,7 +50,7 @@ export default function RootLayout({
         >
           {draftMode().isEnabled && (
             <Box
-              position="absolute"
+              position="fixed"
               bottom="2"
               right="2"
             >
@@ -49,9 +65,18 @@ export default function RootLayout({
               </Link>
             </Box>
           )}
-          <Nav />
+          <Nav 
+            products={products}
+            services={services}
+            settings={settings}
+          />
           {children}
           {draftMode().isEnabled && <VisualEditing />}
+          <Footer 
+            products={products}
+            services={services}
+            settings={settings}
+          />
         </Theme>
       </body>
     </html>

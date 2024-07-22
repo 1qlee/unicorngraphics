@@ -2,30 +2,29 @@ import styles from './Hero.module.scss'
 import { urlFor } from "@/sanity/lib/image";
 import Image from 'next/image';
 import { BlockContent } from '@/root/sanity.types';
-import { Container, Flex } from '@radix-ui/themes';
+import { Box, Container, Flex, Heading, Text } from '@radix-ui/themes';
 import ImageBox from '../ImageBox/ImageBox';
 import { CustomPortableText } from '../CustomPortableText/CustomPortableText';
 
-interface HeroData {
-  hero?: BlockContent | null;
-  heroImage?: {
-    alt?: string;
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-    };
-    _type: "image";
-  };
-}
-
 interface HeroProps {
-  data: HeroData;
+  data?: {
+    _id: string;
+    title: string | null;
+    description: string | null;
+    image: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+      };
+      alt?: string;
+      _type: "image";
+    } | null;
+  } | null;
 }
 
 function Hero({ data }: HeroProps) {
-  const { hero, heroImage } = data;
-  
+  const { title, description, image } = data ?? {};
+
   return (
     <section className={styles.Hero}>
       <Container>
@@ -38,20 +37,25 @@ function Hero({ data }: HeroProps) {
             direction="column"
             align="center"
             justify="center"
-            mb="9"
           >
-            {hero && <CustomPortableText align="center" value={hero} />}
+            <Heading align="center" as="h1" size="9" mb="6">{title}</Heading>
+            <Box
+              maxWidth="60ch"
+              mb="6"
+            >
+              <Text as="p" align="center" color="gray" size="4">{description}</Text>
+            </Box>
           </Flex>
           <div
             className={styles.HeroImage}
           >
-            {heroImage?.asset && (
+            {image?.asset && (
               <ImageBox>
                 <Image
-                  src={urlFor(heroImage?.asset?._ref).url()}
+                  src={urlFor(image?.asset?._ref).url()}
                   fill
                   sizes="100vw"
-                  alt={heroImage.alt ?? 'Hero Image'}
+                  alt={image.alt ?? 'Hero Image'}
                 />
               </ImageBox>
             )}

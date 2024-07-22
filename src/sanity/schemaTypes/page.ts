@@ -23,10 +23,28 @@ export default defineType({
       hidden: ({ document }) => !document?.title,
     }),
     defineField({
+      name: 'infoText',
+      title: 'Information Text',
+      type: 'blockContent',
+    }),
+    defineField({
+      name: "image",
+      title: "Image",
+      type: "image",
+      description: "This image will be used in thumbnails, avatars, and hero.",
+      fields: [
+        {
+          name: 'alt',
+          type: 'string',
+          title: 'Alternative Text',
+        }
+      ]
+    }),
+    defineField({
       name: "category",
       title: "Category",
       type: "string",
-      description: "The type of page this is. This will determine how the page is displayed and what links to it.",
+      description: "This will determine how the page is displayed and what links to it.",
       options: {
         list: ["product", "service"],
         layout: "radio",
@@ -37,10 +55,39 @@ export default defineType({
       title: "Description",
       type: "string",
       description: "A short descriptor text that is displayed alongside certain links to this page.",
-      initialValue: "This is some dummy text.",
+      initialValue: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc dapibus ipsum est, at gravida tellus molestie a.",
       validation: rule => [
         rule.required()
       ],
+    }),
+    defineField({
+      name: "imageGrid",
+      title: "Image Grid",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            {
+              name: "image",
+              type: "image",
+              title: "Image"
+            },
+            {
+              name: "title",
+              type: "string",
+              title: "Title",
+              description: "This text will display when users hover over the image."
+            },
+            {
+              name: "alt",
+              type: "string",
+              title: "Alt text",
+              description: "This text will display when the image fails to load."
+            }
+          ]
+        }
+      ]
     }),
   ],
 })

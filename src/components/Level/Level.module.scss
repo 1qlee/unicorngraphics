@@ -1,0 +1,15 @@
+.LevelItem {
+  h3 {
+    position: relative;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 4px;
+      left: -10px;
+      height: 20px;
+      width: 2px;
+      background-color: var(--accent-9);
+    }
+  }
+}

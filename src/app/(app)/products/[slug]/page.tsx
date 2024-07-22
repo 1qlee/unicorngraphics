@@ -1,39 +1,44 @@
 // ./app/(blog)/posts/[slug]/page.tsx
 
 import { QueryParams } from "next-sanity";
-import { notFound } from "next/navigation";
 
-import { PRODUCTS_QUERY, PRODUCT_QUERY } from "@/sanity/lib/queries";
+import { PRODUCTS_QUERY, PAGE_QUERY } from "@/sanity/lib/queries";
 
 import { client, sanityFetch } from "@/sanity/lib/client";
 import {
-  PRODUCT_QUERYResult,
+  PAGE_QUERYResult,
   PRODUCTS_QUERYResult,
 } from "@/root/sanity.types";
+import { Container, Section } from "@radix-ui/themes";
+import HeroAlt from "@/components/Hero/HeroAlt";
+import { CustomPortableText } from "@/root/src/components/CustomPortableText/CustomPortableText";
 
 export async function generateStaticParams() {
-  const posts = await client.fetch<PRODUCTS_QUERYResult>(
+  const products = await client.fetch<PRODUCTS_QUERYResult>(
     PRODUCTS_QUERY,
     {},
     { perspective: "published" }
   );
 
-  return posts.map((post) => ({
-    slug: post?.slug?.current,
+  return products.map((product) => ({
+    slug: product?.slug?.current,
   }));
 }
 
 export default async function Page({ params }: { params: QueryParams }) {
-  const post = await sanityFetch<PRODUCT_QUERYResult>({
-    query: PRODUCT_QUERY,
+  const page = await sanityFetch<PAGE_QUERYResult>({
+    query: PAGE_QUERY,
     params,
   });
-  if (!post) {
-    return notFound();
-  }
+
   return (
-    <div>
-      <h1>{post.title}</h1>
-    </div>
+    <main>
+      <HeroAlt data={page} />
+      <Container>
+        <Section>
+          <CustomPortableText value={page?.infoText ?? []} />
+        </Section>
+      </Container>
+    </main>
   );
 }

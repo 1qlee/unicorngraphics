@@ -85,7 +85,7 @@ export default defineType({
               name: "title",
               type: "string",
               title: "Title",
-              description: "This text will display when users hover over the iamge."
+              description: "This text will display when users hover over the image."
             },
             {
               name: "alt",
@@ -96,6 +96,38 @@ export default defineType({
           ]
         }
       ]
-    })
+    }),
+    defineField({
+      name: "productsText",
+      title: "Products Text",
+      type: "blockContent",
+    }),
+    defineField({
+      name: "aboutText",
+      title: "About Text",
+      type: "blockContent",
+    }),
+    defineField({
+      name: 'aboutImage',
+      title: 'About Image',
+      type: 'image',
+      fields: [
+        {
+          name: 'alt',
+          type: 'string',
+          title: 'Alternative Text',
+        }
+      ]
+    }),
+    defineField({
+      name: "servicesText",
+      title: "Services Text",
+      type: "blockContent",
+    }),
+    defineField({
+      name: "contactText",
+      title: "Contact Text",
+      type: "blockContent",
+    }),
   ],
 })

@@ -1,0 +1,44 @@
+.GridSelectCol {
+  position: relative;
+  text-decoration: none;
+}
+
+.GridSelectCard {
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  position: relative;
+  transition: transform 200ms ease-in-out;
+  z-index: 1;
+
+  &::after {
+    position: absolute;
+    content: '';
+    left: -8px;
+    top: -8px;
+    border-radius: var(--radius-2);
+    width: calc(100% + 16px);
+    height: calc(100% + 16px);
+    transition: box-shadow 200ms ease-in-out;
+    z-index: 2;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    &::after {
+      box-shadow: 0 8px 16px var(--gray-4), 8px 0px 16px var(--gray-4);
+    }
+  }
+
+  h3 {
+    color: var(--accent-a11);
+  }
+
+  img {
+    object-fit: cover;
+    border-radius: var(--radius-2);
+    width: 100%;
+    height: 400px;
+  }
+}
+
