@@ -158,7 +158,7 @@ async function Nav({
                 <Dialog.Description
                   mb="4"
                 >
-                  Need a quote for your project or have any questions about our products or services? Send us an email using the form below, and we'll get back to you as soon as possible.
+                  Need a quote for your project or have any questions about our products or services? Send us an email using the form below, and we&apos;ll get back to you as soon as possible.
                 </Dialog.Description>
 
                 <Flex direction="column" gap="3">
