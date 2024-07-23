@@ -6,8 +6,9 @@ import type { Image as ImageType } from "sanity"
 import Image from 'next/image'
 import { urlFor } from '@/sanity/lib/image'
 import { BlockContent } from '@/root/sanity.types'
-import { Box, Button, Heading, Text } from '@radix-ui/themes'
+import { Box, Button, Heading, Text, Link as RadixLink } from '@radix-ui/themes'
 import Link from 'next/link'
+import { Responsive } from '@radix-ui/themes/props'
 
 type Color = 
   "gray" | "gold" | "bronze" | "brown" | "yellow" | "amber" | "orange" | "tomato" | "red" | "ruby" | "crimson" | "pink" | "plum" | "purple" | "violet" | "iris" | "indigo" | "blue" | "cyan" | "teal" | "jade" | "green" | "grass" | "lime" | "mint" | "sky" | undefined;
@@ -15,6 +16,8 @@ type Color =
 type Variant =
   "classic" | "solid" | "soft" | "surface" | "outline" | "ghost" | undefined
 
+type Size =
+  Responsive<"9" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8"> | undefined
 
 export function CustomPortableText({
   value,
@@ -23,7 +26,11 @@ export function CustomPortableText({
   buttonVariant,
   customTextColor,
   headingColor,
+  customHeadingColor,
   textColor,
+  h1Size,
+  pSize,
+  pMargin,
 }: {
   align?: 'left' | 'center' | 'right' | undefined;
   customTextColor?: string;
@@ -31,20 +38,27 @@ export function CustomPortableText({
   buttonVariant?: Variant;
   textColor?: Color;
   headingColor?: Color;
+  customHeadingColor?: string;
   value: BlockContent;
+  h1Size?: Size;
+  pSize?: Size;
+  pMargin?: Size;
 }) {
   const components: PortableTextComponents = {
     block: {
       h1: ({ children }) => {
-        return <Heading color={headingColor} as="h1" size="9" mb="6" align={align}>{children}</Heading>
+        return <Heading style={{ color: customHeadingColor }} color={headingColor} as="h1" size={h1Size || "9"} mb="6" align={align}>{children}</Heading>
       },
       h2: ({ children }) => {
-        return <Heading color={headingColor} as="h2" size="9" mb="6" align={align}>{children}</Heading>
+        return <Heading style={{ color: customHeadingColor }} color={headingColor} as="h2" size="9" mb="6" align={align}>{children}</Heading>
+      },
+      h3: ({ children }) => {
+        return <Heading style={{ color: customHeadingColor }} color={headingColor} as="h3" size="3" mb="1" align={align}>{children}</Heading>
       },
       normal: ({ children }) => {
         return (
           <Box maxWidth="60ch">
-            <Text style={{ color: customTextColor }} color={textColor || "gray"} as="p" size="4" mb="6" align={align}>{children}</Text>
+            <Text style={{ color: customTextColor }} color={textColor || "gray"} as="p" size={pSize || "4"} mb={pMargin || "6"} align={align}>{children}</Text>
           </Box>
         )
       },
@@ -55,12 +69,12 @@ export function CustomPortableText({
     marks: {
       link: ({ children, value }) => {
         return (
-          <a
+          <RadixLink
             href={value?.href}
             rel="noreferrer noopener"
           >
             {children}
-          </a>
+          </RadixLink>
         )
       },
     },

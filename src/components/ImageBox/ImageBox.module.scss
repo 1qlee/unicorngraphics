@@ -10,7 +10,7 @@
     left: -8px;
     top: -8px;
     border-radius: var(--radius-2);
-    box-shadow: 0 8px 16px var(--gray-4), 8px 0px 16px var(--gray-4);
+    box-shadow: var(--shadow-6);
     width: calc(100% + 16px);
     height: calc(100% + 16px);
     z-index: 2;

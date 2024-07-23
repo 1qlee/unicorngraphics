@@ -1093,6 +1093,14 @@
           "name": "blockContent"
         },
         "optional": true
+      },
+      "sidebarText": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "blockContent"
+        },
+        "optional": true
       }
     }
   },

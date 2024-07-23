@@ -187,6 +187,7 @@ export type Contact = {
   _updatedAt: string;
   _rev: string;
   hero?: BlockContent;
+  sidebarText?: BlockContent;
 };
 
 export type Home = {
@@ -467,4 +468,15 @@ export type HOME_QUERYResult = {
   };
   servicesText?: BlockContent;
   contactText?: BlockContent;
+} | null;
+// Variable: CONTACT_QUERY
+// Query: *[_type == "contact"][0]
+export type CONTACT_QUERYResult = {
+  _id: string;
+  _type: "contact";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  hero?: BlockContent;
+  sidebarText?: BlockContent;
 } | null;

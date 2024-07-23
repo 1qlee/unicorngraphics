@@ -4,21 +4,25 @@ import Image from "next/image";
 import NavBurger from "@/components/Nav/NavBurger";
 import styles from "./Nav.module.scss";
 import { CaretDownIcon } from "@radix-ui/react-icons";
-import { Flex, Container, Text, Button, Link, Box, Grid, Dialog, TextField, TextArea } from "@radix-ui/themes";
+import { Dialog, Flex, Container, Text, Button, Link, Box, Grid } from "@radix-ui/themes";
+import ContactForm from "@/components/ContactForm/ContactForm";
 
 import { urlFor } from "@/sanity/lib/image";
-import { PRODUCTS_QUERYResult, SERVICES_QUERYResult, SETTINGS_QUERYResult } from "@/root/sanity.types";
+import { CONTACT_QUERYResult, PRODUCTS_QUERYResult, SERVICES_QUERYResult, SETTINGS_QUERYResult } from "@/root/sanity.types";
+import { CustomPortableText } from "@/components/CustomPortableText/CustomPortableText";
 
 interface NavProps {
   products: PRODUCTS_QUERYResult;
   services: SERVICES_QUERYResult;
   settings: SETTINGS_QUERYResult;
+  contact: CONTACT_QUERYResult;
 }
 
 async function Nav({
   products,
   services,
   settings,
+  contact,
 }: NavProps) {
 
   return (
@@ -69,7 +73,7 @@ async function Nav({
                         initial: "1",
                         xs: "2"
                       }}
-                      gap="2"
+                      gap="0"
                     >
                       {products.map(product => (
                         <CardLink
@@ -144,7 +148,6 @@ async function Nav({
                 <Button
                   mr={{
                     initial: "4",
-                    
                     lg: "2",
                   }}
                 >
@@ -152,72 +155,23 @@ async function Nav({
                 </Button>
               </Dialog.Trigger>
               <Dialog.Content>
-                <Dialog.Title>
-                  Contact Us / Request a Quote
-                </Dialog.Title>
-                <Dialog.Description
-                  mb="4"
-                >
-                  Need a quote for your project or have any questions about our products or services? Send us an email using the form below, and we&apos;ll get back to you as soon as possible.
-                </Dialog.Description>
-
-                <Flex direction="column" gap="3">
-                  <label>
-                    <Text size="2" mb="1" weight="bold">
-                      Name
-                    </Text>
-                    <TextField.Root
-                      placeholder="Full name"
-                      radius="medium"
-                      size="3"
-                      variant="classic"
-                    />
-                  </label>
-                  <label>
-                    <Text size="2" mb="1" weight="bold">
-                      Email
-                    </Text>
-                    <TextField.Root
-                      placeholder="Email address"
-                      radius="medium"
-                      size="3"
-                      variant="classic"
-                    />
-                  </label>
-                  <label>
-                    <Text size="2" mb="1" weight="bold">
-                      Phone (U.S. only)
-                    </Text>
-                    <TextField.Root
-                      placeholder="Phone number"
-                      radius="medium"
-                      size="3"
-                      type="tel"
-                      variant="classic"
-                    />
-                  </label>
-                  <label>
-                    <Text size="2" mb="1" weight="bold">
-                      Message
-                    </Text>
-                    <TextArea
-                      placeholder="Type your message here..."
-                      radius="medium"
-                      size="3"
-                      variant="classic"
-                    />
-                  </label>
-
-                  <Flex gap="3" mt="4" justify="end">
-                    <Dialog.Close>
-                      <Button variant="soft" color="gray">
-                        Close
-                      </Button>
-                    </Dialog.Close>
-                    <Dialog.Close>
-                      <Button>Send message</Button>
-                    </Dialog.Close>
-                  </Flex>
+                <CustomPortableText
+                  h1Size="6"
+                  pSize="3"
+                  value={contact?.hero ?? []}
+                />
+                <ContactForm 
+                  data={contact}
+                />
+                <Flex gap="3" mt="4" justify="end">
+                  <Dialog.Close>
+                    <Button variant="soft" color="gray">
+                      Close
+                    </Button>
+                  </Dialog.Close>
+                  <Dialog.Close>
+                    <Button>Send message</Button>
+                  </Dialog.Close>
                 </Flex>
               </Dialog.Content>
             </Dialog.Root>

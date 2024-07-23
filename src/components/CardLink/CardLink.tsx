@@ -32,8 +32,7 @@ function CardLink({ children, heading, text, href, image, hasImg }: CardLinkProp
       <Flex
         className={styles.CardLink}
         align="center"
-        px="2"
-        py="4"
+        p="2"
       >
         {hasImg && (
           <Avatar

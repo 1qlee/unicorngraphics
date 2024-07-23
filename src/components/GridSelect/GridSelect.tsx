@@ -44,8 +44,9 @@ function GridSelect({
             className={styles.GridSelectCard}
           >
             <Image
-              src={item.image?.asset?._ref ? urlFor(item.image.asset._ref).url() : "https://placehold.co/400x600.jpg"}
+              src={item.image?.asset?._ref ? urlFor(item.image.asset._ref).url() : "https://placehold.co/600x400.jpg"}
               alt={item.image?.alt ?? 'Product image'}
+              sizes="100vw"
               width={500}
               height={400}
             />

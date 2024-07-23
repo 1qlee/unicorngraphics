@@ -11,6 +11,13 @@ export default defineType({
       name: 'hero',
       title: 'Hero',
       type: 'blockContent',
+      description: "This content block will appear on both /contact and in the contact us pop-up."
+    }),
+    defineField({
+      name: 'sidebarText',
+      title: 'Sidebar Text',
+      type: 'blockContent',
+      description: "This content block will appear on adjacent to the contact form only on /contact."
     }),
   ],
 })

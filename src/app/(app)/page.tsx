@@ -74,7 +74,7 @@ export default async function Page() {
           />
         </ResponsiveContainer>
       </Section>
-      <Section style={{backgroundColor:"var(--gray-12)"}}>
+      <Section style={{backgroundColor:"var(--accent-3)"}}>
         <ResponsiveContainer>
           <Grid
             columns="repeat(auto-fit, minmax(250px, 1fr))"
@@ -96,10 +96,7 @@ export default async function Page() {
               mb="9"
             >
               <CustomPortableText 
-                buttonColor="lime"
                 buttonVariant="solid"
-                customTextColor="var(--orange-2)"
-                headingColor="orange"
                 value={data?.aboutText ?? []}  
               />
             </Box>
@@ -125,7 +122,9 @@ export default async function Page() {
           />
         </ResponsiveContainer>
       </Section>
-      <Section>
+      <Section
+        style={{backgroundColor:"var(--accent-3)"}}
+      >
         <ResponsiveContainer>
           <Flex
             justify="center"
@@ -136,7 +135,10 @@ export default async function Page() {
               width="60ch"
               align="center"
             >
-              <CustomPortableText align="center" value={data?.contactText ?? []} />
+              <CustomPortableText 
+                align="center" 
+                value={data?.contactText ?? []} 
+              />
             </Flex>
           </Flex>
         </ResponsiveContainer>

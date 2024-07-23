@@ -12,8 +12,8 @@ import { VisualEditing } from "next-sanity";
 import { draftMode } from "next/headers";
 import { Button, Box, Link } from "@radix-ui/themes";
 import { GeistSans } from 'geist/font/sans';
-import { PRODUCTS_QUERY, SERVICES_QUERY, SETTINGS_QUERY } from "@/sanity/lib/queries";
-import { PRODUCTS_QUERYResult, SERVICES_QUERYResult, SETTINGS_QUERYResult } from "@/root/sanity.types";
+import { CONTACT_QUERY, PRODUCTS_QUERY, SERVICES_QUERY, SETTINGS_QUERY } from "@/sanity/lib/queries";
+import { CONTACT_QUERYResult, PRODUCTS_QUERYResult, SERVICES_QUERYResult, SETTINGS_QUERYResult } from "@/root/sanity.types";
 import { sanityFetch } from "@/sanity/lib/client";
 
 import Footer from "@/components/Footer/Footer";
@@ -33,6 +33,9 @@ export default async function RootLayout({
   const services = await sanityFetch<SERVICES_QUERYResult>({
     query: SERVICES_QUERY,
   });
+  const contact = await sanityFetch<CONTACT_QUERYResult>({
+    query: CONTACT_QUERY,
+  })
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -69,6 +72,7 @@ export default async function RootLayout({
             products={products}
             services={services}
             settings={settings}
+            contact={contact}
           />
           {children}
           {draftMode().isEnabled && <VisualEditing />}
