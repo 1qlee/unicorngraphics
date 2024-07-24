@@ -77,9 +77,10 @@ export default async function Page({ params }: { params: QueryParams }) {
                 columns="minmax(0, 1fr)"
               >
                 {chunk.map((image) => (
-                  <ImageBox>
+                  <ImageBox
+                    key={image?._key}
+                  >
                     <Image
-                      key={image?._key}
                       src={image?.image?.asset?._ref ? urlFor(image?.image?.asset?._ref).url() : `https://placehold.co/${generateRandomImgSize()}.jpg`}
                       sizes="100vw"
                       height={300}
