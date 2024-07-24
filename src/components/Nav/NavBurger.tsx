@@ -6,8 +6,7 @@ import styles from "./NavBurger.module.scss"
 import utilStyles from "./NavUtils.module.scss";
 import { CaretDownIcon } from "@radix-ui/react-icons";
 import { Cross1Icon, HamburgerMenuIcon } from "@radix-ui/react-icons";
-import { IconButton, Flex, Text, Separator } from "@radix-ui/themes";
-import { SanityDocument } from "next-sanity";
+import { IconButton, Flex, Text } from "@radix-ui/themes";
 import { useState } from "react";
 import { PRODUCTS_QUERYResult, SERVICES_QUERYResult } from "@/root/sanity.types";
 
@@ -50,7 +49,7 @@ function CollapsibleMenuItem({
             href={`/${category.charAt(0).toLowerCase() + category.slice(1)}/${item?.slug?.current}`}
             heading={item.title}
             text={item.description}
-            image={item.image}
+            image={item.mainImage}
             hasImg={true}
           />
         ))}
