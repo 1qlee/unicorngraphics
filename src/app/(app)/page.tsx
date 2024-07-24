@@ -10,6 +10,7 @@ import GridSelect from "@/components/GridSelect/GridSelect";
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 import ResponsiveContainer from "@/components/ResponsiveContainer/ResponsiveContainer";
+import PlaceholderImg from "@/public/images/600x400.jpg"
 
 export default async function Page() {
   const data = await sanityFetch<HOME_QUERYResult>({
@@ -90,7 +91,7 @@ export default async function Page() {
               position="relative"
             >
               <Image
-                src={data?.aboutImage?.asset?._ref ? urlFor(data?.aboutImage?.asset?._ref).url() : 'https://placehold.co/400x600.jpg'}
+                src={data?.aboutImage?.asset?._ref ? urlFor(data?.aboutImage?.asset?._ref).url() : PlaceholderImg}
                 fill
                 sizes="100vw"
                 style={{ objectFit: 'cover' }}

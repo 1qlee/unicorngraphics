@@ -23,7 +23,8 @@
       "@/components/*": ["./src/components/*"],
       "@/actions/*": ["./actions/*"],
       "@/styles/*": ["./src/styles/*"],
-      "@/sanity/*": ["./src/sanity/*"]
+      "@/sanity/*": ["./src/sanity/*"],
+      "@/public/*": ["./public/*"],
     },
     "target": "ES2017"
   },

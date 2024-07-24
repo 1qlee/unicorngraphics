@@ -4,6 +4,7 @@ import styles from "./GridSelect.module.scss"
 import Link from "next/link";
 import Image from "next/image";
 import { urlFor } from "../../sanity/lib/image";
+import PlaceholderImg from "@/public/images/600x400.jpg"
 
 interface GridSelectProps {
   category: string;
@@ -44,7 +45,7 @@ function GridSelect({
             className={styles.GridSelectCard}
           >
             <Image
-              src={item.mainImage?.asset?._ref ? urlFor(item.mainImage.asset._ref).url() : "https://placehold.co/400x600.jpg"}
+              src={item.mainImage?.asset?._ref ? urlFor(item.mainImage.asset._ref).url() : PlaceholderImg}
               alt={item.mainImage?.alt ?? 'Product image'}
               sizes="100vw"
               width={500}
