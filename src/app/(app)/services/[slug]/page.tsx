@@ -1,19 +1,20 @@
 // ./app/(blog)/posts/[slug]/page.tsx
 
 import { QueryParams } from "next-sanity";
-import { PRODUCTS_QUERY, PAGE_QUERY } from "@/sanity/lib/queries";
+import { SERVICES_QUERY, PAGE_QUERY } from "@/sanity/lib/queries";
 import { client, sanityFetch } from "@/sanity/lib/client";
 import {
   PAGE_QUERYResult,
-  PRODUCTS_QUERYResult,
+  SERVICES_QUERYResult,
 } from "@/root/sanity.types";
 import { Container, Section } from "@radix-ui/themes";
 import HeroAlt from "@/components/Hero/HeroAlt";
 import { CustomPortableText } from "@/components/CustomPortableText/CustomPortableText";
+import ResponsiveContainer from "@/root/src/components/ResponsiveContainer/ResponsiveContainer";
 
 export async function generateStaticParams() {
-  const products = await client.fetch<PRODUCTS_QUERYResult>(
-    PRODUCTS_QUERY,
+  const products = await client.fetch<SERVICES_QUERYResult>(
+    SERVICES_QUERY,
     {},
     { perspective: "published" }
   );
@@ -32,12 +33,11 @@ export default async function Page({ params }: { params: QueryParams }) {
   return (
     <main>
       <HeroAlt data={page} />
-      <Container>
-        <Section>
+      <Section>
+        <ResponsiveContainer>
           <CustomPortableText value={page?.infoText ?? []} />
-        </Section>
-      </Container>
-      <h2>HELLO?</h2>
+        </ResponsiveContainer>
+      </Section>
     </main>
   );
 }

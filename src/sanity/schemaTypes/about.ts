@@ -12,5 +12,17 @@ export default defineType({
       title: 'Hero',
       type: 'blockContent',
     }),
+    defineField({
+      type: "image",
+      name: "heroImage",
+      title: "Hero Image",
+      fields: [
+        {
+          name: 'alt',
+          type: 'string',
+          title: 'Alternative Text',
+        }
+      ]
+    }),
   ],
 })

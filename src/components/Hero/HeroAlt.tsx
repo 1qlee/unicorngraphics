@@ -49,13 +49,22 @@ function Hero({ data }: HeroProps) {
           <div
             className={styles.HeroImage}
           >
-            {image?.asset && (
+            {image?.asset ? (
               <ImageBox>
                 <Image
                   src={urlFor(image?.asset?._ref).url()}
                   fill
                   sizes="100vw"
                   alt={image.alt ?? 'Hero Image'}
+                />
+              </ImageBox>
+            ) : (
+              <ImageBox>
+                <Image
+                  src="https://placehold.co/1136x400.jpg"
+                  fill
+                  sizes="100vw"
+                  alt="Hero Image"
                 />
               </ImageBox>
             )}

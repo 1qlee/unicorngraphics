@@ -1,0 +1,11 @@
+.Field {
+  &:not(:last-child) {
+    margin-bottom: var(--space-4);
+  }
+}
+
+.Control {
+  [data-invalid] {
+    background-color: #FEEBEC !important;
+  }
+}

@@ -1,5 +1,6 @@
 import { PRODUCTS_QUERYResult, SERVICES_QUERYResult, SETTINGS_QUERYResult } from "@/root/sanity.types";
 import { Separator, Text, Container, Box, Grid, Flex, Heading, Link } from "@radix-ui/themes";
+import { CustomPortableText } from "../CustomPortableText/CustomPortableText";
 
 interface FooterProps {
   products: PRODUCTS_QUERYResult,
@@ -39,11 +40,22 @@ function Footer({
             my="9"
           />
           <Grid
-            columns="repeat(auto-fit, minmax(200px, 1fr))"
+            columns="repeat(auto-fit, minmax(160px, 1fr))"
+            gap="4"
           >
-            <Text>
-              &copy; {new Date().getFullYear()} Unicorn Graphics, Inc.
-            </Text>
+            <Flex direction="column">
+              <Text weight="bold">
+                &copy; {new Date().getFullYear()} Unicorn Graphics, Inc.
+              </Text>
+              <Box mt="2">
+                <CustomPortableText
+                  pSize="3"
+                  pMargin="1"
+                  textColor="gray"
+                  value={settings?.footerText ?? []}
+                />
+              </Box>
+            </Flex>
             <Flex
               direction="column"
             >

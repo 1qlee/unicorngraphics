@@ -18,7 +18,7 @@ interface NavProps {
   contact: CONTACT_QUERYResult;
 }
 
-async function Nav({
+function Nav({
   products,
   services,
   settings,
@@ -161,18 +161,8 @@ async function Nav({
                   value={contact?.hero ?? []}
                 />
                 <ContactForm 
-                  data={contact}
+                  isDialog={true}
                 />
-                <Flex gap="3" mt="4" justify="end">
-                  <Dialog.Close>
-                    <Button variant="soft" color="gray">
-                      Close
-                    </Button>
-                  </Dialog.Close>
-                  <Dialog.Close>
-                    <Button>Send message</Button>
-                  </Dialog.Close>
-                </Flex>
               </Dialog.Content>
             </Dialog.Root>
           </Flex>

@@ -9,19 +9,7 @@ import { CustomPortableText } from "@/components/CustomPortableText/CustomPortab
 import GridSelect from "@/components/GridSelect/GridSelect";
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
-
-function ResponsiveContainer({ children }: { children: React.ReactNode }) {
-  return (
-    <Container
-      px={{
-        initial: "4",
-        lg: "0",
-      }}
-    >
-      {children}
-    </Container>
-  )
-}
+import ResponsiveContainer from "@/components/ResponsiveContainer/ResponsiveContainer";
 
 export default async function Page() {
   const data = await sanityFetch<HOME_QUERYResult>({

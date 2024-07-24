@@ -1,9 +1,10 @@
 import { CustomPortableText } from "@/root/src/components/CustomPortableText/CustomPortableText";
-import { Container, Section, Flex, Grid, Box, Button } from "@radix-ui/themes";
+import { Section, Flex, Grid, Box } from "@radix-ui/themes";
 import { sanityFetch } from "@/root/src/sanity/lib/client";
 import { CONTACT_QUERY } from "@/root/src/sanity/lib/queries";
 import { CONTACT_QUERYResult } from "@/root/sanity.types";
 import ContactForm from "@/root/src/components/ContactForm/ContactForm";
+import ResponsiveContainer from "@/root/src/components/ResponsiveContainer/ResponsiveContainer";
 
 export default async function ContactPage() {
   const contact = await sanityFetch<CONTACT_QUERYResult>({
@@ -13,7 +14,7 @@ export default async function ContactPage() {
   return (
     <main>
       <Section>
-        <Container>
+        <ResponsiveContainer>
           <Flex
             direction="column"
             align="center"
@@ -21,9 +22,9 @@ export default async function ContactPage() {
           >
             <CustomPortableText align="center" value={contact?.hero ?? []} />
           </Flex>
-        </Container>
+        </ResponsiveContainer>
         <Section>
-          <Container>
+          <ResponsiveContainer>
             <Grid
               columns="repeat(auto-fit, minmax(300px, 1fr))"
               gap="6"
@@ -35,21 +36,7 @@ export default async function ContactPage() {
                   boxShadow: "var(--shadow-4)",
                 }}
               >
-                <ContactForm
-                  data={contact}
-                />
-                <Flex
-                  mt="4"
-                  justify="end"
-                >
-                  <Button 
-                    type="submit"
-                    form="contact-form"
-                    size="3"
-                  >
-                    Send message
-                  </Button>
-                </Flex>
+                <ContactForm isDialog={false} />
               </Box>
               <Box>
                 <CustomPortableText 
@@ -59,7 +46,7 @@ export default async function ContactPage() {
                 />
               </Box>
             </Grid>
-          </Container>
+          </ResponsiveContainer>
         </Section>
       </Section>
     </main>

@@ -86,6 +86,41 @@ export type Settings = {
     alt?: string;
     _type: "image";
   };
+  footerText?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote" | "small";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  } | {
+    buttonText?: string;
+    buttonUrl?: string;
+    _type: "button";
+    _key: string;
+  }>;
 };
 
 export type BlockContent = Array<{
@@ -178,6 +213,17 @@ export type About = {
   _updatedAt: string;
   _rev: string;
   hero?: BlockContent;
+  heroImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
 };
 
 export type Contact = {
@@ -390,9 +436,14 @@ export type SERVICES_QUERYResult = Array<{
   } | null;
 }>;
 // Variable: SETTINGS_QUERY
-// Query: *[_type == "settings"][0]{  logo}
+// Query: *[_type == "settings"][0]
 export type SETTINGS_QUERYResult = {
-  logo: {
+  _id: string;
+  _type: "settings";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  logo?: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -403,7 +454,42 @@ export type SETTINGS_QUERYResult = {
     crop?: SanityImageCrop;
     alt?: string;
     _type: "image";
-  } | null;
+  };
+  footerText?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal" | "small";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    buttonText?: string;
+    buttonUrl?: string;
+    _type: "button";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
 } | null;
 // Variable: HOME_QUERY
 // Query: *[_type == "home"][0]
@@ -479,4 +565,25 @@ export type CONTACT_QUERYResult = {
   _rev: string;
   hero?: BlockContent;
   sidebarText?: BlockContent;
+} | null;
+// Variable: ABOUT_QUERY
+// Query: *[_type == "about"][0]
+export type ABOUT_QUERYResult = {
+  _id: string;
+  _type: "about";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  hero?: BlockContent;
+  heroImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
 } | null;

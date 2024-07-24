@@ -17,5 +17,11 @@ export default defineType({
         }
       ]
     }),
+    defineField({
+      name: "footerText",
+      title: "Footer Text",
+      type: "blockContent",
+      description: "Text to display in the footer underneath where it says 'Unicorn Graphics, Inc.'",
+    }),
   ],
 })
