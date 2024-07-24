@@ -39,6 +39,23 @@ export default async function Page() {
               <CustomPortableText value={data?.sliderText ?? []} />
             </Box>
           </Grid>
+          <Flex
+            justify="center"
+            gap="6"
+            align="center"
+            wrap="wrap"
+            mb="9"
+          >
+            {data?.slider?.map((item) => (
+              <Image 
+                key={item._key}
+                src={item?.image?.asset?._ref ? urlFor(item?.image?.asset._ref).url() : 'https://placehold.co/400x600.jpg'}
+                alt={item.alt ?? 'Slider image'}
+                width={160}
+                height={60}
+              />
+            ))}
+          </Flex>
           <Slider data={data?.slider} />
           <Level data={data?.sliderStats} />
         </ResponsiveContainer>

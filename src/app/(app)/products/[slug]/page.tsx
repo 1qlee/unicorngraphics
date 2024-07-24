@@ -7,9 +7,13 @@ import {
   PAGE_QUERYResult,
   PRODUCTS_QUERYResult,
 } from "@/root/sanity.types";
-import { Container, Section } from "@radix-ui/themes";
+import { Grid, Section, Box } from "@radix-ui/themes";
 import HeroAlt from "@/components/Hero/HeroAlt";
 import { CustomPortableText } from "@/components/CustomPortableText/CustomPortableText";
+import ResponsiveContainer from "@/components/ResponsiveContainer/ResponsiveContainer";
+import ImageBox from "@/components/ImageBox/ImageBox";
+import Image from "next/image";
+import { urlFor } from "@/sanity/lib/image";
 
 export async function generateStaticParams() {
   const products = await client.fetch<PRODUCTS_QUERYResult>(
@@ -29,15 +33,67 @@ export default async function Page({ params }: { params: QueryParams }) {
     params,
   });
 
+  function generateRandomImgSize() {
+    const sizes = ['400x600', '800x400', '600x600', '400x800'];
+    return sizes[Math.floor(Math.random() * sizes.length)];
+  }
+
+  function splitArrayIntoChunks(arr: any[], chunkSize: number) {
+    const chunks = [];
+    for (let i = 0; i < arr.length; i += chunkSize) {
+      chunks.push(arr.slice(i, i + chunkSize));
+    }
+    return chunks;
+  }
+
+  const imageGridChunks = splitArrayIntoChunks(page?.imageGrid ?? [], 2);
+
   return (
     <main>
       <HeroAlt data={page} />
-      <Container>
-        <Section>
-          <CustomPortableText value={page?.infoText ?? []} />
-        </Section>
-      </Container>
-      <h2>HELLO?</h2>
+      <Section>
+        <ResponsiveContainer>
+          <Grid
+            gap="4"
+            columns="repeat(2,1fr)"
+          >
+            <Box>
+              <CustomPortableText value={page?.infoText ?? []} />
+            </Box>
+          </Grid>
+        </ResponsiveContainer>
+      </Section>
+      <Section>
+        <ResponsiveContainer>
+          <Grid
+            gap="6"
+            columns="repeat(4, minmax(0, 1fr))"
+            align="start"
+          >
+            {imageGridChunks.map((chunk, index) => (
+              <Grid
+                key={index}
+                gap="6"
+                columns="minmax(0, 1fr)"
+              >
+                {chunk.map((image) => (
+                  <ImageBox>
+                    <Image
+                      key={image?._key}
+                      src={image?.image?.asset?._ref ? urlFor(image?.image?.asset?._ref).url() : `https://placehold.co/${generateRandomImgSize()}.jpg`}
+                      sizes="100vw"
+                      height={300}
+                      width={400}
+                      style={{ objectFit: 'cover', width: '100%', height: 'auto' }}
+                      alt={image?.alt ?? "Some image"}
+                    />
+                  </ImageBox>
+                ))}
+              </Grid>
+            ))}
+          </Grid>
+        </ResponsiveContainer>
+      </Section>
     </main>
   );
 }

@@ -168,7 +168,7 @@ export type Page = {
   title?: string;
   slug?: Slug;
   infoText?: BlockContent;
-  image?: {
+  mainImage?: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -222,6 +222,7 @@ export type About = {
     };
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
+    alt?: string;
     _type: "image";
   };
 };
@@ -360,12 +361,12 @@ export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: PAGE_QUERY
-// Query: *[_type == "page" && slug.current == $slug][0]{  _id, title, description, image, infoText, imageGrid}
+// Query: *[_type == "page" && slug.current == $slug][0]{  _id, title, description, mainImage, infoText, imageGrid}
 export type PAGE_QUERYResult = {
   _id: string;
   title: string | null;
   description: string | null;
-  image: {
+  mainImage: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -396,13 +397,13 @@ export type PAGE_QUERYResult = {
   }> | null;
 } | null;
 // Variable: PRODUCTS_QUERY
-// Query: *[_type == "page" && category == "product"]{  _id, description, title, slug, image}
+// Query: *[_type == "page" && category == "product"]{  _id, description, title, slug, mainImage}
 export type PRODUCTS_QUERYResult = Array<{
   _id: string;
   description: string | null;
   title: string | null;
   slug: Slug | null;
-  image: {
+  mainImage: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -416,13 +417,13 @@ export type PRODUCTS_QUERYResult = Array<{
   } | null;
 }>;
 // Variable: SERVICES_QUERY
-// Query: *[_type == "page" && category == "service"]{  _id, description, title, slug, image}
+// Query: *[_type == "page" && category == "service"]{  _id, description, title, slug, mainImage}
 export type SERVICES_QUERYResult = Array<{
   _id: string;
   description: string | null;
   title: string | null;
   slug: Slug | null;
-  image: {
+  mainImage: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -584,6 +585,7 @@ export type ABOUT_QUERYResult = {
     };
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
+    alt?: string;
     _type: "image";
   };
 } | null;

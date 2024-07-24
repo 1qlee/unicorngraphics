@@ -80,7 +80,7 @@ function Nav({
                           key={product._id}
                           href={`/products/${product.slug?.current}`}
                           heading={product.title}
-                          image={product.image}
+                          image={product.mainImage}
                           hasImg={true}
                         />
                       ))}
@@ -109,7 +109,7 @@ function Nav({
                           key={service._id}
                           href={`/services/${service.slug?.current}`}
                           heading={service.title}
-                          image={service.image}
+                          image={service.mainImage}
                           hasImg={true}
                         />
                       ))}
@@ -120,7 +120,7 @@ function Nav({
 
               <NavigationMenu.Item>
                 <NavigationMenu.Link className={styles.NavigationMenuLink} asChild>
-                  <Link href="https://github.com/radix-ui" size="2">
+                  <Link href="/about" size="2">
                     About Us
                   </Link>
                 </NavigationMenu.Link>

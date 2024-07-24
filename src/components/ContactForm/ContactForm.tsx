@@ -1,7 +1,7 @@
 "use client"
 
 import * as Form from "@radix-ui/react-form"
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { Flex, Text, TextField, TextArea, Button, Spinner } from "@radix-ui/themes"
 import { sendContactEmail } from "@/actions/contact.action";
 import { EnvelopeClosedIcon } from "@radix-ui/react-icons";
@@ -34,6 +34,7 @@ function Label({ children, tag}: { children: React.ReactNode, tag: string }) {
 }
 
 export default function ContactForm({ isDialog }: { isDialog: boolean }) {
+  const formRef = useRef<HTMLFormElement>(null);
   const [status, setStatus] = useState<StateProps>({
     submitting: false,
     code: null,
@@ -53,12 +54,6 @@ export default function ContactForm({ isDialog }: { isDialog: boolean }) {
   }
 
   async function handleSubmit(data: FormData) {
-    setStatus({
-      ...status,
-      submitting: true,
-      code: null,
-    });
-
     const startTime = performance.now();
     const res = await sendContactEmail(data, isDialog);
     const endTime = performance.now();
@@ -71,13 +66,21 @@ export default function ContactForm({ isDialog }: { isDialog: boolean }) {
         code: res.status,
         message: res.message,
       });
+      
+      if (formRef.current) {
+        formRef.current.reset();
+      }
     }
+
+    setTimeout(() => setStatus({ ...status, message: "" }), 5000);
   }
 
   return (
     <Form.Root
       id={formTag}
       action={data => handleSubmit(data)}
+      onSubmit={() => setStatus({ ...status, submitting: true })}
+      ref={formRef}
     >
       <Form.Field name={nameTag} className={styles.Field}>
         <Form.Label asChild>
@@ -166,8 +169,14 @@ export default function ContactForm({ isDialog }: { isDialog: boolean }) {
       <Flex
         mt="4"
         justify="between"
+        align="center"
+        gap="4"
       >
-        <Text>
+        <Text
+          style={{
+            color: status.code === 200 ? "green" : "red",
+          }}
+        >
           {status.message}
         </Text>
         <Button

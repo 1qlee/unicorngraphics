@@ -28,8 +28,8 @@ export default defineType({
       type: 'blockContent',
     }),
     defineField({
-      name: "image",
-      title: "Image",
+      name: "mainImage",
+      title: "Main Image",
       type: "image",
       description: "This image will be used in thumbnails, avatars, and hero.",
       fields: [
@@ -71,7 +71,7 @@ export default defineType({
             {
               name: "image",
               type: "image",
-              title: "Image"
+              title: "Image",
             },
             {
               name: "title",

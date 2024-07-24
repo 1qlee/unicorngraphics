@@ -13,7 +13,7 @@ interface GridSelectProps {
     description: string | null;
     title: string | null;
     slug: Slug | null; 
-    image?: {
+    mainImage?: {
       asset?: {
         _ref: string;
         _type: "reference";
@@ -44,8 +44,8 @@ function GridSelect({
             className={styles.GridSelectCard}
           >
             <Image
-              src={item.image?.asset?._ref ? urlFor(item.image.asset._ref).url() : "https://placehold.co/400x600.jpg"}
-              alt={item.image?.alt ?? 'Product image'}
+              src={item.mainImage?.asset?._ref ? urlFor(item.mainImage.asset._ref).url() : "https://placehold.co/400x600.jpg"}
+              alt={item.mainImage?.alt ?? 'Product image'}
               sizes="100vw"
               width={500}
               height={400}

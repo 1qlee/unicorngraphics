@@ -11,7 +11,7 @@ interface HeroProps {
     _id: string;
     title: string | null;
     description: string | null;
-    image: {
+    mainImage: {
       asset?: {
         _ref: string;
         _type: "reference";
@@ -23,7 +23,7 @@ interface HeroProps {
 }
 
 function Hero({ data }: HeroProps) {
-  const { title, description, image } = data ?? {};
+  const { title, description, mainImage } = data ?? {};
 
   return (
     <section className={styles.Hero}>
@@ -49,13 +49,13 @@ function Hero({ data }: HeroProps) {
           <div
             className={styles.HeroImage}
           >
-            {image?.asset ? (
+            {mainImage?.asset ? (
               <ImageBox>
                 <Image
-                  src={urlFor(image?.asset?._ref).url()}
+                  src={urlFor(mainImage?.asset?._ref).url()}
                   fill
                   sizes="100vw"
-                  alt={image.alt ?? 'Hero Image'}
+                  alt={mainImage.alt ?? 'Hero Image'}
                 />
               </ImageBox>
             ) : (
