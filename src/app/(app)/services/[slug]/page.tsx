@@ -7,7 +7,7 @@ import {
   PAGE_QUERYResult,
   SERVICES_QUERYResult,
 } from "@/root/sanity.types";
-import { Container, Section } from "@radix-ui/themes";
+import { Grid, Section } from "@radix-ui/themes";
 import HeroAlt from "@/components/Hero/HeroAlt";
 import { CustomPortableText } from "@/components/CustomPortableText/CustomPortableText";
 import ResponsiveContainer from "@/root/src/components/ResponsiveContainer/ResponsiveContainer";
@@ -36,6 +36,16 @@ export default async function Page({ params }: { params: QueryParams }) {
       <Section>
         <ResponsiveContainer>
           <CustomPortableText value={page?.infoText ?? []} />
+        </ResponsiveContainer>
+      </Section>
+      <Section>
+        <ResponsiveContainer>
+          <Grid
+            gap="4"
+            columns="repeat(auto-fill, minmax(200px, 1fr))"
+          >
+
+          </Grid>
         </ResponsiveContainer>
       </Section>
     </main>
