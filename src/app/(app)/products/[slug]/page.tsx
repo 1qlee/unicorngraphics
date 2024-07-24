@@ -46,25 +46,16 @@ export default async function Page({ params }: { params: QueryParams }) {
     return chunks;
   }
 
-  const imageGridChunks = splitArrayIntoChunks(page?.imageGrid ?? [], 2);
+  const imageGridChunks = splitArrayIntoChunks(page?.imageGrid ?? [], 4);
 
   return (
     <main>
       <HeroAlt data={page} />
       <Section>
         <ResponsiveContainer>
-          <Grid
-            gap="4"
-            columns="repeat(2,1fr)"
-          >
-            <Box>
-              <CustomPortableText value={page?.infoText ?? []} />
-            </Box>
-          </Grid>
-        </ResponsiveContainer>
-      </Section>
-      <Section>
-        <ResponsiveContainer>
+          <Box>
+            <CustomPortableText value={page?.infoText ?? []} />
+          </Box>
           <Grid
             gap="6"
             columns="repeat(4, minmax(0, 1fr))"

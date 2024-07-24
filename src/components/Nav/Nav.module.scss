@@ -54,7 +54,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  padding: 16px;
+  padding: var(--space-2);
   width: 100%;
   animation-duration: 250ms;
   animation-timing-function: ease;

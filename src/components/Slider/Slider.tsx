@@ -37,7 +37,7 @@ function Slider({ data }: SliderProps) {
             src={image?.image?.asset?._ref ? urlFor(image.image.asset._ref).url() : "https://placehold.co/400x600.jpg"}
             alt={image.alt ?? 'Company Logo'}
             title={image.title ?? 'Company Logo'}
-            width={240}
+            width={160}
             height={80}
           />
         </figure>

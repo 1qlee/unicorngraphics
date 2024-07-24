@@ -21,23 +21,7 @@ export default defineType({
           name: 'alt',
           type: 'string',
           title: 'Alternative Text',
-        }
-      ]
-    }),
-    defineField({
-      name: 'heroButton',
-      title: 'Hero Button',
-      type: 'object',
-      fields: [
-        {
-          name: 'text',
-          title: 'Text',
-          type: 'string',
-        },
-        {
-          name: 'link',
-          title: 'Link',
-          type: 'string',
+          description: "This text will display instead of an image when the image fails to load."
         }
       ]
     }),

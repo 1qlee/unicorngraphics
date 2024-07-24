@@ -52,7 +52,7 @@ export default async function Page() {
                 src={item?.image?.asset?._ref ? urlFor(item?.image?.asset._ref).url() : 'https://placehold.co/400x600.jpg'}
                 alt={item.alt ?? 'Slider image'}
                 width={160}
-                height={60}
+                height={80}
               />
             ))}
           </Flex>
