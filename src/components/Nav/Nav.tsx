@@ -30,7 +30,7 @@ function Nav({
       <Container
         px={{
           initial: "4",
-          lg: "0",
+          lg: "4",
         }}
       >
         <Flex
@@ -43,9 +43,9 @@ function Nav({
           >
             {settings?.logo?.asset?._ref ? (
               <Image
-                src={urlFor(settings?.logo?.asset?._ref).width(32).height(32).url()}
-                width="32"
-                height="32"
+                src={urlFor(settings?.logo?.asset?._ref).url()}
+                width={54}
+                height={54}
                 alt={settings?.logo?.alt ?? "Company Logo"}
               />
             ) : (
@@ -145,12 +145,7 @@ function Nav({
             />
             <Dialog.Root>
               <Dialog.Trigger>
-                <Button
-                  mr={{
-                    initial: "4",
-                    lg: "2",
-                  }}
-                >
+                <Button>
                   Contact Us
                 </Button>
               </Dialog.Trigger>

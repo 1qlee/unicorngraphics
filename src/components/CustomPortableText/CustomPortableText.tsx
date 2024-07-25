@@ -29,6 +29,7 @@ export function CustomPortableText({
   customHeadingColor,
   textColor,
   h1Size,
+  h2Size,
   pSize,
   pMargin,
 }: {
@@ -41,6 +42,7 @@ export function CustomPortableText({
   customHeadingColor?: string;
   value: BlockContent;
   h1Size?: Size;
+  h2Size?: Size;
   pSize?: Size;
   pMargin?: Size;
 }) {
@@ -50,7 +52,7 @@ export function CustomPortableText({
         return <Heading style={{ color: customHeadingColor }} color={headingColor} as="h1" size={h1Size || "9"} mb="6" align={align}>{children}</Heading>
       },
       h2: ({ children }) => {
-        return <Heading style={{ color: customHeadingColor }} color={headingColor} as="h2" size="9" mb="6" align={align}>{children}</Heading>
+        return <Heading style={{ color: customHeadingColor }} color={headingColor} as="h2" size={h2Size || "6"} mb="6" align={align}>{children}</Heading>
       },
       h3: ({ children }) => {
         return <Heading style={{ color: customHeadingColor }} color={headingColor} as="h3" size="3" mb="1" align={align}>{children}</Heading>

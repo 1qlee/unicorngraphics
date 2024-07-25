@@ -3,7 +3,7 @@ import { HOME_QUERY, PRODUCTS_QUERY, SERVICES_QUERY } from "@/sanity/lib/queries
 import { HOME_QUERYResult, PRODUCTS_QUERYResult, SERVICES_QUERYResult } from "@/root/sanity.types";
 import Hero from "@/components/Hero/Hero";
 import Slider from "@/components/Slider/Slider";
-import { Section, Box, Container, Grid, Heading, Text, Flex } from "@radix-ui/themes";
+import { Section, Box, Grid, Flex, Heading, Separator } from "@radix-ui/themes";
 import Level from "@/components/Level/Level";
 import { CustomPortableText } from "@/components/CustomPortableText/CustomPortableText";
 import GridSelect from "@/components/GridSelect/GridSelect";
@@ -31,15 +31,28 @@ export default async function Page() {
       <Section>
         <ResponsiveContainer>
           <Grid
-            columns="2"
+            columns="repeat(2, 1fr)"
             gap="4"
           >
+            <Box>
+              <Heading as="h2">ABOUT US</Heading>
+            </Box>
             <Box
-              mb="9"
             >
-              <CustomPortableText value={data?.sliderText ?? []} />
+              <CustomPortableText 
+                h2Size="6"
+                value={data?.sliderText ?? []}
+              />
             </Box>
           </Grid>
+        </ResponsiveContainer>
+      </Section>
+      <Separator
+        size="4"
+        color="lime"
+      />
+      <Section>
+        <ResponsiveContainer>
           <Flex
             justify="center"
             gap="6"
@@ -48,7 +61,7 @@ export default async function Page() {
             mb="9"
           >
             {data?.slider?.map((item) => (
-              <Image 
+              <Image
                 key={item._key}
                 src={item?.image?.asset?._ref ? urlFor(item?.image?.asset._ref).url() : 'https://placehold.co/400x600.jpg'}
                 alt={item.alt ?? 'Slider image'}
@@ -57,7 +70,6 @@ export default async function Page() {
               />
             ))}
           </Flex>
-          <Slider data={data?.slider} />
           <Level data={data?.sliderStats} />
         </ResponsiveContainer>
       </Section>

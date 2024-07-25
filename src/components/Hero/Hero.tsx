@@ -28,36 +28,31 @@ function Hero({ data }: HeroProps) {
   
   return (
     <section className={styles.Hero}>
-      <Container>
+      <div className={styles.Wrapper}>
         <Flex
-          align="center"
-          justify="center"
-          direction="column"
+          width="60ch"
+          className={styles.Content}
         >
-          <Flex
-            direction="column"
-            align="center"
-            justify="center"
-            mb="9"
-          >
-            {hero && <CustomPortableText align="center" value={hero} />}
-          </Flex>
-          <div
-            className={styles.HeroImage}
-          >
-            {heroImage?.asset && (
-              <ImageBox>
-                <Image
-                  src={urlFor(heroImage?.asset?._ref).url()}
-                  fill
-                  sizes="100vw"
-                  alt={heroImage.alt ?? 'Hero Image'}
-                />
-              </ImageBox>
-            )}
-          </div>
+          {hero && (
+            <CustomPortableText
+              headingColor='orange'
+              value={hero}
+            />
+          )}
         </Flex>
-      </Container>
+        <div
+          className={styles.Image}
+        >
+          {heroImage?.asset && (
+            <Image
+              src={urlFor(heroImage?.asset?._ref).url()}
+              fill
+              sizes="100vw"
+              alt={heroImage.alt ?? 'Hero Image'}
+            />
+          )}
+        </div>
+      </div>
     </section>
   )
 }

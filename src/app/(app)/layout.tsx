@@ -47,6 +47,7 @@ export default async function RootLayout({
           grayColor="slate"
           radius="full"
           appearance="light"
+          scaling="110%"
           style={{
             backgroundColor: "var(--gray-1)"
           }}
