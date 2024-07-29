@@ -11,17 +11,23 @@ interface GridSelectProps {
   columns: string;
   data: {
     _id: string;
-    description: string | null;
-    title: string | null;
-    slug: Slug | null; 
+    _type: "page";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    title?: string;
+    slug?: Slug;
     mainImage?: {
       asset?: {
         _ref: string;
         _type: "reference";
+        _weak?: boolean;
       };
       alt?: string;
       _type: "image";
-    } | null;
+    };
+    category?: "product" | "service";
+    description?: string;
   }[]
 }
 
@@ -51,8 +57,8 @@ function GridSelect({
               width={500}
               height={400}
             />
-            <Heading as="h3" size="3" my="2">{item.title}</Heading>
-            <Text as="p" color="gray" size="2">{item.description}</Text>
+            <Heading as="h3" size="4" my="2">{item.title}</Heading>
+            <Text as="p" color="gray" size="3">{item.description}</Text>
           </article>
         </Link>
       ))}

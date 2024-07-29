@@ -6,13 +6,9 @@ export const PAGE_QUERY = groq`*[_type == "page" && slug.current == $slug][0]{
   _id, title, description, mainImage, infoText, imageGrid
 }`;
 
-export const PRODUCTS_QUERY = groq`*[_type == "page" && category == "product"]{
-  _id, description, title, slug, mainImage
-}`;
+export const PRODUCTS_QUERY = groq`*[_type == "page" && category == "product"]`;
 
-export const SERVICES_QUERY = groq`*[_type == "page" && category == "service"]{
-  _id, description, title, slug, mainImage
-}`;
+export const SERVICES_QUERY = groq`*[_type == "page" && category == "service"]`;
 
 export const SETTINGS_QUERY = groq`*[_type == "settings"][0]`;
 

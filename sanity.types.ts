@@ -68,6 +68,13 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type Button = {
+  _type: "button";
+  text?: string;
+  link?: string;
+  icon?: string;
+};
+
 export type Settings = {
   _id: string;
   _type: "settings";
@@ -93,7 +100,7 @@ export type Settings = {
       _type: "span";
       _key: string;
     }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote" | "small";
+    style?: "h1" | "h2" | "h3" | "h4" | "normal" | "small";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
@@ -115,12 +122,9 @@ export type Settings = {
     alt?: string;
     _type: "image";
     _key: string;
-  } | {
-    buttonText?: string;
-    buttonUrl?: string;
-    _type: "button";
+  } | ({
     _key: string;
-  }>;
+  } & Button)>;
 };
 
 export type BlockContent = Array<{
@@ -130,7 +134,7 @@ export type BlockContent = Array<{
     _type: "span";
     _key: string;
   }>;
-  style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote" | "small";
+  style?: "h1" | "h2" | "h3" | "h4" | "normal" | "small";
   listItem?: "bullet" | "number";
   markDefs?: Array<{
     href?: string;
@@ -152,12 +156,9 @@ export type BlockContent = Array<{
   alt?: string;
   _type: "image";
   _key: string;
-} | {
-  buttonText?: string;
-  buttonUrl?: string;
-  _type: "button";
+} | ({
   _key: string;
-}>;
+} & Button)>;
 
 export type Page = {
   _id: string;
@@ -243,31 +244,9 @@ export type Home = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  hero?: BlockContent;
-  heroImage?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    _type: "image";
-  };
-  heroButton?: {
-    text?: string;
-    link?: string;
-  };
-  sliderText?: BlockContent;
-  sliderStats?: Array<{
-    heading?: string;
-    text?: string;
-    _key: string;
-  }>;
-  slider?: Array<{
-    image?: {
+  heroSection?: {
+    heroContent?: BlockContent;
+    heroImage?: {
       asset?: {
         _ref: string;
         _type: "reference";
@@ -276,28 +255,54 @@ export type Home = {
       };
       hotspot?: SanityImageHotspot;
       crop?: SanityImageCrop;
+      alt?: string;
       _type: "image";
     };
-    title?: string;
-    alt?: string;
-    _key: string;
-  }>;
-  productsText?: BlockContent;
-  aboutText?: BlockContent;
-  aboutImage?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    _type: "image";
   };
-  servicesText?: BlockContent;
-  contactText?: BlockContent;
+  firstSection?: {
+    heading?: BlockContent;
+    leftContent?: BlockContent;
+    rightContent?: BlockContent;
+    gridContent?: {
+      content?: Array<{
+        icon?: string;
+        heading?: string;
+        text?: string;
+        _key: string;
+      }>;
+    };
+  };
+  secondSection?: {
+    heading?: BlockContent;
+    slider?: Array<{
+      image?: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+      title?: string;
+      alt?: string;
+      _key: string;
+    }>;
+  };
+  thirdSection?: {
+    content?: BlockContent;
+  };
+  fourthSection?: {
+    heading?: BlockContent;
+    firstColumn?: BlockContent;
+    secondColumn?: BlockContent;
+    thirdColumn?: BlockContent;
+  };
+  fifthSection?: {
+    content?: BlockContent;
+  };
 };
 
 export type SanityImageCrop = {
@@ -357,7 +362,7 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Settings | BlockContent | Page | Slug | About | Contact | Home | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Button | Settings | BlockContent | Page | Slug | About | Contact | Home | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: PAGE_QUERY
@@ -397,13 +402,17 @@ export type PAGE_QUERYResult = {
   }> | null;
 } | null;
 // Variable: PRODUCTS_QUERY
-// Query: *[_type == "page" && category == "product"]{  _id, description, title, slug, mainImage}
+// Query: *[_type == "page" && category == "product"]
 export type PRODUCTS_QUERYResult = Array<{
   _id: string;
-  description: string | null;
-  title: string | null;
-  slug: Slug | null;
-  mainImage: {
+  _type: "page";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  infoText?: BlockContent;
+  mainImage?: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -414,16 +423,38 @@ export type PRODUCTS_QUERYResult = Array<{
     crop?: SanityImageCrop;
     alt?: string;
     _type: "image";
-  } | null;
+  };
+  category?: "product" | "service";
+  description?: string;
+  imageGrid?: Array<{
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    title?: string;
+    alt?: string;
+    _key: string;
+  }>;
 }>;
 // Variable: SERVICES_QUERY
-// Query: *[_type == "page" && category == "service"]{  _id, description, title, slug, mainImage}
+// Query: *[_type == "page" && category == "service"]
 export type SERVICES_QUERYResult = Array<{
   _id: string;
-  description: string | null;
-  title: string | null;
-  slug: Slug | null;
-  mainImage: {
+  _type: "page";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  infoText?: BlockContent;
+  mainImage?: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -434,7 +465,25 @@ export type SERVICES_QUERYResult = Array<{
     crop?: SanityImageCrop;
     alt?: string;
     _type: "image";
-  } | null;
+  };
+  category?: "product" | "service";
+  description?: string;
+  imageGrid?: Array<{
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    title?: string;
+    alt?: string;
+    _key: string;
+  }>;
 }>;
 // Variable: SETTINGS_QUERY
 // Query: *[_type == "settings"][0]
@@ -456,14 +505,16 @@ export type SETTINGS_QUERYResult = {
     alt?: string;
     _type: "image";
   };
-  footerText?: Array<{
+  footerText?: Array<({
+    _key: string;
+  } & Button) | {
     children?: Array<{
       marks?: Array<string>;
       text?: string;
       _type: "span";
       _key: string;
     }>;
-    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal" | "small";
+    style?: "h1" | "h2" | "h3" | "h4" | "normal" | "small";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
@@ -472,11 +523,6 @@ export type SETTINGS_QUERYResult = {
     }>;
     level?: number;
     _type: "block";
-    _key: string;
-  } | {
-    buttonText?: string;
-    buttonUrl?: string;
-    _type: "button";
     _key: string;
   } | {
     asset?: {
@@ -500,31 +546,9 @@ export type HOME_QUERYResult = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  hero?: BlockContent;
-  heroImage?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    _type: "image";
-  };
-  heroButton?: {
-    text?: string;
-    link?: string;
-  };
-  sliderText?: BlockContent;
-  sliderStats?: Array<{
-    heading?: string;
-    text?: string;
-    _key: string;
-  }>;
-  slider?: Array<{
-    image?: {
+  heroSection?: {
+    heroContent?: BlockContent;
+    heroImage?: {
       asset?: {
         _ref: string;
         _type: "reference";
@@ -533,28 +557,54 @@ export type HOME_QUERYResult = {
       };
       hotspot?: SanityImageHotspot;
       crop?: SanityImageCrop;
+      alt?: string;
       _type: "image";
     };
-    title?: string;
-    alt?: string;
-    _key: string;
-  }>;
-  productsText?: BlockContent;
-  aboutText?: BlockContent;
-  aboutImage?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    _type: "image";
   };
-  servicesText?: BlockContent;
-  contactText?: BlockContent;
+  firstSection?: {
+    heading?: BlockContent;
+    leftContent?: BlockContent;
+    rightContent?: BlockContent;
+    gridContent?: {
+      content?: Array<{
+        icon?: string;
+        heading?: string;
+        text?: string;
+        _key: string;
+      }>;
+    };
+  };
+  secondSection?: {
+    heading?: BlockContent;
+    slider?: Array<{
+      image?: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+      title?: string;
+      alt?: string;
+      _key: string;
+    }>;
+  };
+  thirdSection?: {
+    content?: BlockContent;
+  };
+  fourthSection?: {
+    heading?: BlockContent;
+    firstColumn?: BlockContent;
+    secondColumn?: BlockContent;
+    thirdColumn?: BlockContent;
+  };
+  fifthSection?: {
+    content?: BlockContent;
+  };
 } | null;
 // Variable: CONTACT_QUERY
 // Query: *[_type == "contact"][0]

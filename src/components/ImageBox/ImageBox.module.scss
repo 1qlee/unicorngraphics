@@ -2,21 +2,9 @@
   position: relative;
   width: 100%;
   height: 100%;
-  z-index: 1;
-
-  &::after {
-    position: absolute;
-    content: '';
-    left: -8px;
-    top: -8px;
-    border-radius: var(--radius-2);
-    box-shadow: var(--shadow-6);
-    width: calc(100% + 16px);
-    height: calc(100% + 16px);
-    z-index: 2;
-  }
 
   img {
     border-radius: var(--radius-2);
+    object-fit: cover;
   }
 }

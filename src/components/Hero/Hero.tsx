@@ -2,20 +2,22 @@ import styles from './Hero.module.scss'
 import { urlFor } from "@/sanity/lib/image";
 import Image from 'next/image';
 import { BlockContent } from '@/root/sanity.types';
-import { Container, Flex } from '@radix-ui/themes';
-import ImageBox from '../ImageBox/ImageBox';
+import { Flex, Section } from '@radix-ui/themes';
 import { CustomPortableText } from '../CustomPortableText/CustomPortableText';
+import ResponsiveContainer from '../ResponsiveContainer/ResponsiveContainer';
 
 interface HeroData {
-  hero?: BlockContent | null;
-  heroImage?: {
-    alt?: string;
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
+  heroSection?: {
+    heroContent?: BlockContent;
+    heroImage?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+      };
+      alt?: string;
+      _type: "image";
     };
-    _type: "image";
   };
 }
 
@@ -24,36 +26,39 @@ interface HeroProps {
 }
 
 function Hero({ data }: HeroProps) {
-  const { hero, heroImage } = data;
+  const { heroSection } = data;
+  const { heroContent, heroImage } = heroSection ?? {};
   
   return (
-    <section className={styles.Hero}>
-      <div className={styles.Wrapper}>
-        <Flex
-          width="60ch"
-          className={styles.Content}
-        >
-          {hero && (
-            <CustomPortableText
-              headingColor='orange'
-              value={hero}
-            />
-          )}
-        </Flex>
-        <div
-          className={styles.Image}
-        >
-          {heroImage?.asset && (
-            <Image
-              src={urlFor(heroImage?.asset?._ref).url()}
-              fill
-              sizes="100vw"
-              alt={heroImage.alt ?? 'Hero Image'}
-            />
-          )}
-        </div>
+    <Section
+      py="0"
+    >
+      <div className={styles.Hero}>
+        <ResponsiveContainer>
+          <Flex
+            className={styles.Content}
+          >
+            {heroContent && (
+              <CustomPortableText
+                value={heroContent}
+              />
+            )}
+          </Flex>
+          <div
+            className={styles.Image}
+          >
+            {heroImage?.asset && (
+              <Image
+                src={urlFor(heroImage?.asset?._ref).url()}
+                fill
+                sizes="100vw"
+                alt={heroImage.alt ?? 'Hero Image'}
+              />
+            )}
+          </div>
+        </ResponsiveContainer>
       </div>
-    </section>
+    </Section>
   )
 }
 

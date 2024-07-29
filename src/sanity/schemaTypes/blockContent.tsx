@@ -1,5 +1,5 @@
-import {defineType, defineArrayMember} from 'sanity'
-import { ButtonIcon } from '@radix-ui/react-icons'
+import { defineType, defineArrayMember, PortableTextInputProps } from 'sanity'
+import { TextColorIcon, TextColorDecorator } from '../components/Decorator'
 
 /**
  * This is the schema type for block content used in the post document type
@@ -25,13 +25,12 @@ export default defineType({
       // you want, and decide how you want to deal with it where you want to
       // use your content.
       styles: [
-        {title: 'Normal', value: 'normal',},
-        {title: 'Heading 1', value: 'h1'},
-        {title: 'Heading 2', value: 'h2'},
-        {title: 'Heading 3', value: 'h3'},
-        {title: 'Heading 4', value: 'h4'},
-        {title: 'Quote', value: 'blockquote'},
-        {title: 'Small', value: 'small', component: ({children}) => <small>{children}</small>},
+        { title: 'Heading 1', value: 'h1' },
+        { title: 'Heading 2', value: 'h2' },
+        { title: 'Heading 3', value: 'h3' },
+        { title: 'Heading 4', value: 'h4' },
+        { title: 'Normal', value: 'normal', },
+        { title: 'Small', value: 'small', component: ({children}) => <small>{children}</small>},
       ],
       lists: [
         { title: 'Bullet', value: 'bullet' },
@@ -44,6 +43,25 @@ export default defineType({
         decorators: [
           {title: 'Bold', value: 'strong'},
           {title: 'Italic', value: 'em'},
+          {
+            title: 'Orange', 
+            value: 'orange', 
+            icon: () => <TextColorIcon color="#F76B15" />,
+            component: (props) => <TextColorDecorator {...props} color="#F76B15" />
+          },
+          {
+            title: 'Lime', 
+            value: 'lime', 
+            icon: () => <TextColorIcon color="#BDEE63" />,
+            component: (props) => <TextColorDecorator {...props} color="#BDEE63" />
+
+          },
+          {
+            title: 'Indigo', 
+            value: 'Indigo', 
+            icon: () => <TextColorIcon color="#3E63DD" />,
+            component: (props) => <TextColorDecorator {...props} color="#3E63DD" />
+          }
         ],
         // Annotations can be any object structure – e.g. a link or a footnote.
         annotations: [
@@ -73,27 +91,12 @@ export default defineType({
           name: 'alt',
           type: 'string',
           title: 'Alternative Text',
+          description: "This text will display when the image fails to load."
         }
       ]
     }),
     defineArrayMember({
-      title: 'Button',
-      name: 'button',
-      type: 'object',
-      icon: ButtonIcon,
-      fields: [
-        {
-          name: 'buttonText',
-          type: 'string',
-          title: 'Text',
-        },
-        {
-          name: 'buttonUrl',
-          type: 'string',
-          title: 'URL',
-          description: "Only enter the path, not the full URL. For example, 'about' will link to '/about'.",
-        }
-      ]
+      type: "button",
     }),
   ],
 })
