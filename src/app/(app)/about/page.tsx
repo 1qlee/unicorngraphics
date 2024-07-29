@@ -13,11 +13,6 @@ export default async function AboutPage() {
 
   return (
     <main>
-      {about && (
-        <Hero
-          data={about}
-        />
-      )}
     </main>
   )
 }
