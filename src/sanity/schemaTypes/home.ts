@@ -12,7 +12,7 @@ export default defineType({
       name: 'heroSection',
       title: 'Hero Section',
       type: 'object',
-      description: 'This section will display at the top of the page. It is the first section viewers will see on the home page.',
+      description: 'This section will display at the top of the page. It is the first section viewers will see on the page.',
       fields: [
         {
           name: 'heroContent',
@@ -42,12 +42,6 @@ export default defineType({
       type: "object",
       description: "This section will display directly below the hero  section (the main image). This is a two-column section with a heading section above it.",
       fields: [
-        {
-          name: "heading",
-          title: "Heading",
-          type: "blockContent",
-          description: "This text will display above all other content in this section."
-        },
         {
           name: "leftContent",
           type: "blockContent",
@@ -107,7 +101,8 @@ export default defineType({
         },
         {
           name: "slider",
-          title: "Image Slider",
+          title: "Client Images",
+          description: "Best to use images that are 2:1 ratio (width is greater than height).",
           type: "array",
           of: [
             {
@@ -154,6 +149,20 @@ export default defineType({
       name: "fourthSection",
       title: "Fourth Section",
       type: "object",
+      description: "This section will display directly below the fourth section. This section will display all services.",
+      fields: [
+        {
+          name: "content",
+          title: "Content",
+          type: "blockContent",
+          description: "This text will display above all service cards."
+        }
+      ]
+    }),
+    defineField({
+      name: "fifthSection",
+      title: "Fifth Section",
+      type: "object",
       description: "This section will display directly below the third section. This is a three-column section.",
       fields: [
         {
@@ -163,36 +172,35 @@ export default defineType({
           description: "This text will display above all other content in this section."
         },
         {
-          name: "firstColumn",
-          title: "First Column Content",
-          type: "blockContent",
-          description: "This is the content for the first column."
-        },
-        {
-          name: "secondColumn",
-          title: "Second Column Content",
-          type: "blockContent",
-          description: "This is the content for the second column."
-        },
-        {
-          name: "thirdColumn",
-          title: "Thirds Column Content",
-          type: "blockContent",
-          description: "This is the content for the third column."
-        }
-      ]
-    }),
-    defineField({
-      name: "fifthSection",
-      title: "Fifth Section",
-      type: "object",
-      description: "This section will display directly below the fourth section. This section will display all services.",
-      fields: [
-        {
-          name: "content",
-          title: "Content",
-          type: "blockContent",
-          description: "This text will display above all service cards."
+          name: "gridContent",
+          title: "Grid Content",
+          type: "object",
+          description: "This will display below the two-column section. This is a grid that will expand to as many columns as items inputted.",
+          fields: [
+            {
+              name: "content",
+              title: "Content",
+              type: "array",
+              of: [
+                {
+                  type: "object",
+                  fields: [
+                    icon,
+                    {
+                      name: "heading",
+                      type: "string",
+                      title: "Heading"
+                    },
+                    {
+                      name: "text",
+                      type: "string",
+                      title: "Text"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     }),

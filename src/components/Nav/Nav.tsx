@@ -10,6 +10,7 @@ import ContactForm from "@/components/ContactForm/ContactForm";
 import { urlFor } from "@/sanity/lib/image";
 import { CONTACT_QUERYResult, PRODUCTS_QUERYResult, SERVICES_QUERYResult, SETTINGS_QUERYResult } from "@/root/sanity.types";
 import { CustomPortableText } from "@/components/CustomPortableText/CustomPortableText";
+import ImageBox from "../ImageBox/ImageBox";
 
 interface NavProps {
   products: PRODUCTS_QUERYResult;
@@ -42,12 +43,16 @@ function Nav({
             href="/"
           >
             {settings?.logo?.asset?._ref ? (
-              <Image
-                src={urlFor(settings?.logo?.asset?._ref).url()}
-                width={54}
-                height={54}
-                alt={settings?.logo?.alt ?? "Company Logo"}
-              />
+              <Box width="40px" height="40px">
+                <ImageBox>
+                  <Image
+                    src={urlFor(settings?.logo?.asset?._ref).url()}
+                    width={94}
+                    height={90}
+                    alt={settings?.logo?.alt ?? "Company Logo"}
+                  />
+                </ImageBox>
+              </Box>
             ) : (
               <Text size="2" weight="bold">
                 Unicorn Graphics

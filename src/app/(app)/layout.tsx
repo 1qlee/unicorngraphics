@@ -7,17 +7,34 @@ import '@radix-ui/themes/tokens/colors/orange.css';
 import '@radix-ui/themes/tokens/colors/lime.css';
 import '@radix-ui/themes/tokens/colors/slate.css';
 import '@radix-ui/themes/utilities.css'; 
+
+import type { Metadata } from "next";
+import { Jost } from "next/font/google"
 import { Theme } from '@radix-ui/themes';
 import { VisualEditing } from "next-sanity";
 import { draftMode } from "next/headers";
 import { Button, Box, Link } from "@radix-ui/themes";
-import { GeistSans } from 'geist/font/sans';
 import { CONTACT_QUERY, PRODUCTS_QUERY, SERVICES_QUERY, SETTINGS_QUERY } from "@/sanity/lib/queries";
 import { CONTACT_QUERYResult, PRODUCTS_QUERYResult, SERVICES_QUERYResult, SETTINGS_QUERYResult } from "@/root/sanity.types";
 import { sanityFetch } from "@/sanity/lib/client";
 
 import Footer from "@/components/Footer/Footer";
 import Nav from "@/components/Nav/Nav";
+
+export const metadata: Metadata = {
+  title: {
+    template: "%s | Unicorn Graphics",
+    default: "Unicorn Graphics",
+  },
+  description: "Unicorn Graphics is a commercial printing company that provides a wide range of custom printing services to businesses and individuals.",
+  referrer: 'origin-when-cross-origin',
+  keywords: ['Commercial printing', 'Printing company', 'Custom printing', 'Print shop', 'Print services'],
+}
+
+const jost = Jost({
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 export default async function RootLayout({
   children,
@@ -38,10 +55,8 @@ export default async function RootLayout({
   })
 
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={GeistSans.className}
-      >
+    <html lang="en" className={jost.className} suppressHydrationWarning>
+      <body>
         <Theme
           accentColor="indigo"
           grayColor="slate"

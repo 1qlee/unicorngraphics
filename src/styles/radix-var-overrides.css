@@ -1,4 +1,4 @@
 .radix-themes {
-  --default-font-family: var(--font-geist-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, sans-serif;
+  --default-font-family: var(--font-jost), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, sans-serif;
   --container-4: 1640px;
 }

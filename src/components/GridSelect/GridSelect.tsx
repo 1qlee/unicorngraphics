@@ -1,10 +1,11 @@
 import type { Slug } from "@/root/sanity.types"
-import { Card, Flex, Grid, Heading, Text } from "@radix-ui/themes";
+import { Box, Card, Flex, Grid, Heading, Text } from "@radix-ui/themes";
 import styles from "./GridSelect.module.scss"
 import Link from "next/link";
 import Image from "next/image";
 import { urlFor } from "../../sanity/lib/image";
 import PlaceholderImg from "@/public/images/600x400.jpg"
+import ImageBox from "../ImageBox/ImageBox";
 
 interface GridSelectProps {
   category: string;
@@ -39,7 +40,7 @@ function GridSelect({
   return (
     <Grid
       columns={columns}
-      gap="6"
+      gap="4"
     >
       {data.map((item) => (
         <Link
@@ -50,15 +51,25 @@ function GridSelect({
           <article
             className={styles.GridSelectCard}
           >
-            <Image
-              src={item.mainImage?.asset?._ref ? urlFor(item.mainImage.asset._ref).url() : PlaceholderImg}
-              alt={item.mainImage?.alt ?? 'Product image'}
-              sizes="100vw"
-              width={500}
-              height={400}
-            />
-            <Heading as="h3" size="4" my="2">{item.title}</Heading>
-            <Text as="p" color="gray" size="3">{item.description}</Text>
+            <Box
+              width="100%"
+              height="300px"
+            >
+              <ImageBox>
+                <Image
+                  src={item.mainImage?.asset?._ref ? urlFor(item.mainImage.asset._ref).url() : PlaceholderImg}
+                  alt={item.mainImage?.alt ?? 'Product image'}
+                  fill
+                  sizes="100vw"
+                />
+              </ImageBox>
+            </Box>
+            <Box
+              className={styles.GridSelectContent}
+            >
+              <Heading as="h3" size="4" my="2">{item.title}</Heading>
+              <Text as="p" color="gray" size="3">{item.description}</Text>
+            </Box>
           </article>
         </Link>
       ))}

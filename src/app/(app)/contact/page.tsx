@@ -20,7 +20,9 @@ export default async function ContactPage() {
             align="center"
             justify="center"
           >
-            <CustomPortableText align="center" value={contact?.hero ?? []} />
+            <Box>
+              <CustomPortableText align="center" value={contact?.hero ?? []} />
+            </Box>
           </Flex>
         </ResponsiveContainer>
         <Section>

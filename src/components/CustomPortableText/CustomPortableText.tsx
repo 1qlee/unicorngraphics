@@ -62,7 +62,7 @@ export function CustomPortableText({
         return <Heading as="h2" size="7" mb="4" weight="regular">{children}</Heading>
       },
       normal: ({ children }) => {
-        return <Text as="p" size="3" mb="4">{children}</Text>
+        return <Text as="p" size="4" mb="4" color="gray">{children}</Text>
       },
       small: ({ children }) => {
         return <Text as="p" size="2" mb="4">{children}</Text>
@@ -77,6 +77,9 @@ export function CustomPortableText({
       },
       indigo: ({ children }) => {
         return <Text color="indigo">{children}</Text>
+      },
+      white: ({ children }) => {
+        return <Text style={{ color: "#fff" }}>{children}</Text>
       },
       link: ({ children, value }) => {
         return (

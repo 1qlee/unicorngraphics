@@ -213,18 +213,40 @@ export type About = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  hero?: BlockContent;
-  heroImage?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+  heroSection?: {
+    heroContent?: BlockContent;
+    heroImage?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "image";
     };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    _type: "image";
+  };
+  firstSection?: {
+    leftContent?: BlockContent;
+    rightContent?: BlockContent;
+  };
+  secondSection?: {
+    images?: Array<{
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      title?: string;
+      alt?: string;
+      _type: "image";
+      _key: string;
+    }>;
   };
 };
 
@@ -260,7 +282,6 @@ export type Home = {
     };
   };
   firstSection?: {
-    heading?: BlockContent;
     leftContent?: BlockContent;
     rightContent?: BlockContent;
     gridContent?: {
@@ -295,13 +316,18 @@ export type Home = {
     content?: BlockContent;
   };
   fourthSection?: {
-    heading?: BlockContent;
-    firstColumn?: BlockContent;
-    secondColumn?: BlockContent;
-    thirdColumn?: BlockContent;
+    content?: BlockContent;
   };
   fifthSection?: {
-    content?: BlockContent;
+    heading?: BlockContent;
+    gridContent?: {
+      content?: Array<{
+        icon?: string;
+        heading?: string;
+        text?: string;
+        _key: string;
+      }>;
+    };
   };
 };
 
@@ -562,7 +588,6 @@ export type HOME_QUERYResult = {
     };
   };
   firstSection?: {
-    heading?: BlockContent;
     leftContent?: BlockContent;
     rightContent?: BlockContent;
     gridContent?: {
@@ -597,13 +622,18 @@ export type HOME_QUERYResult = {
     content?: BlockContent;
   };
   fourthSection?: {
-    heading?: BlockContent;
-    firstColumn?: BlockContent;
-    secondColumn?: BlockContent;
-    thirdColumn?: BlockContent;
+    content?: BlockContent;
   };
   fifthSection?: {
-    content?: BlockContent;
+    heading?: BlockContent;
+    gridContent?: {
+      content?: Array<{
+        icon?: string;
+        heading?: string;
+        text?: string;
+        _key: string;
+      }>;
+    };
   };
 } | null;
 // Variable: CONTACT_QUERY
@@ -625,17 +655,39 @@ export type ABOUT_QUERYResult = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  hero?: BlockContent;
-  heroImage?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+  heroSection?: {
+    heroContent?: BlockContent;
+    heroImage?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "image";
     };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    _type: "image";
+  };
+  firstSection?: {
+    leftContent?: BlockContent;
+    rightContent?: BlockContent;
+  };
+  secondSection?: {
+    images?: Array<{
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      title?: string;
+      alt?: string;
+      _type: "image";
+      _key: string;
+    }>;
   };
 } | null;

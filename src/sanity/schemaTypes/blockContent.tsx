@@ -58,9 +58,15 @@ export default defineType({
           },
           {
             title: 'Indigo', 
-            value: 'Indigo', 
+            value: 'indigo', 
             icon: () => <TextColorIcon color="#3E63DD" />,
             component: (props) => <TextColorDecorator {...props} color="#3E63DD" />
+          },
+          {
+            title: 'White', 
+            value: 'white', 
+            icon: () => <TextColorIcon backgroundColor="#000" color="#fff" />,
+            component: (props) => <TextColorDecorator {...props} color="#fff" backgroundColor="#000" />
           }
         ],
         // Annotations can be any object structure – e.g. a link or a footnote.

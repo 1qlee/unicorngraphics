@@ -41,6 +41,7 @@ export default function IconSearch(props: StringInputProps) {
       {showDropdown && (
         <div
           style={{
+            backgroundColor: "#fff",
             maxHeight: "180px",
             position: "absolute",
             overflow: "auto",

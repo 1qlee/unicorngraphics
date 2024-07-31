@@ -2,9 +2,10 @@ import styles from './Hero.module.scss'
 import { urlFor } from "@/sanity/lib/image";
 import Image from 'next/image';
 import { BlockContent } from '@/root/sanity.types';
-import { Flex, Section } from '@radix-ui/themes';
+import { Box, Flex, Section } from '@radix-ui/themes';
 import { CustomPortableText } from '../CustomPortableText/CustomPortableText';
 import ResponsiveContainer from '../ResponsiveContainer/ResponsiveContainer';
+import ImageBox from '../ImageBox/ImageBox';
 
 interface HeroData {
   heroSection?: {
@@ -31,33 +32,49 @@ function Hero({ data }: HeroProps) {
   
   return (
     <Section
-      py="0"
+      pb="9"
+      pt="0"
     >
-      <div className={styles.Hero}>
-        <ResponsiveContainer>
+      <ResponsiveContainer
+        flexGrow="1"
+        flexShrink="1"
+      >
+        <div className={styles.Hero}>
           <Flex
-            className={styles.Content}
+            align="center"
+            justify="center"
+            direction="column"
           >
-            {heroContent && (
-              <CustomPortableText
-                value={heroContent}
-              />
-            )}
+            <Box
+              p="4"
+              maxWidth={{ initial: "100%", md: "50%" }}
+              className={styles.Content}
+            >
+              {heroContent && (
+                <CustomPortableText
+                  value={heroContent}
+                />
+              )}
+            </Box>
           </Flex>
           <div
             className={styles.Image}
           >
             {heroImage?.asset && (
-              <Image
-                src={urlFor(heroImage?.asset?._ref).url()}
-                fill
-                sizes="100vw"
-                alt={heroImage.alt ?? 'Hero Image'}
-              />
+              <Box width="100%" height="100%">
+                <ImageBox>
+                  <Image
+                    src={urlFor(heroImage?.asset?._ref).url()}
+                    fill
+                    sizes="100vw"
+                    alt={heroImage.alt ?? 'Hero Image'}
+                  />
+                </ImageBox>
+              </Box>
             )}
           </div>
-        </ResponsiveContainer>
-      </div>
+        </div>
+      </ResponsiveContainer>
     </Section>
   )
 }

@@ -3,16 +3,19 @@ import styles from "./Level.module.scss";
 import DynamicIcon from "@/sanity/components/DynamicIcon";
 import { Avatar } from "@radix-ui/themes";
 
+type Color = "lime" | "orange";
+
 interface LevelProps {
   data?: {
     heading?: string;
     text?: string;
     icon?: string;
     _key: string;
-  }[] | undefined
+  }[] | undefined;
+  color: Color;
 }
 
-function Level({ data }: LevelProps) {
+function Level({ data, color }: LevelProps) {
   return (
     <Grid
       className={styles.Grid}
@@ -21,20 +24,22 @@ function Level({ data }: LevelProps) {
       mt="9"
     >
       {data?.map(stat => (
-        <Box 
+        <Box
           key={stat._key}
           className={styles.Item}
         >
-          <Flex align="center" gap="2">
+          <Flex align="start" gap="2">
             <Avatar
               size="4"
               fallback={<DynamicIcon icon={stat.icon || ""} height="32px" width="32px" />}
               mb="4"
-              color="orange"
+              color={color}
             />
-            <Heading as="h3" size="8" mb="2">{stat.heading}</Heading>
+            <Box>
+              <Heading as="h3" size="7" mb="2" weight="medium">{stat.heading}</Heading>
+              <Text as="p" size="4">{stat.text}</Text>
+            </Box>
           </Flex>
-          <Text as="p" size="3">{stat.text}</Text>
         </Box>
       ))}
     </Grid>
