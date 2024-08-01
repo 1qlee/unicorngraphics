@@ -24,23 +24,24 @@ function Level({ data, color }: LevelProps) {
       mt="9"
     >
       {data?.map(stat => (
-        <Box
+        <Flex
           key={stat._key}
           className={styles.Item}
+          gap="2"
         >
+          <Avatar
+            size="4"
+            fallback={<DynamicIcon icon={stat.icon || ""} height="32px" width="32px" />}
+            mb="4"
+            color={color}
+          />
           <Flex align="start" gap="2">
-            <Avatar
-              size="4"
-              fallback={<DynamicIcon icon={stat.icon || ""} height="32px" width="32px" />}
-              mb="4"
-              color={color}
-            />
             <Box>
-              <Heading as="h3" size="7" mb="2" weight="medium">{stat.heading}</Heading>
-              <Text as="p" size="4">{stat.text}</Text>
+              <Heading as="h3" size="6" mb="2" weight="medium">{stat.heading}</Heading>
+              <Text as="p" size="3" color="gray">{stat.text}</Text>
             </Box>
           </Flex>
-        </Box>
+        </Flex>
       ))}
     </Grid>
   )

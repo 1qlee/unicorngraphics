@@ -317,17 +317,18 @@ export type Home = {
   };
   fourthSection?: {
     content?: BlockContent;
+    grid?: Array<{
+      icon?: string;
+      heading?: string;
+      text?: string;
+      _key: string;
+    }>;
   };
   fifthSection?: {
+    content?: BlockContent;
+  };
+  sixthSection?: {
     heading?: BlockContent;
-    gridContent?: {
-      content?: Array<{
-        icon?: string;
-        heading?: string;
-        text?: string;
-        _key: string;
-      }>;
-    };
   };
 };
 
@@ -623,17 +624,18 @@ export type HOME_QUERYResult = {
   };
   fourthSection?: {
     content?: BlockContent;
+    grid?: Array<{
+      icon?: string;
+      heading?: string;
+      text?: string;
+      _key: string;
+    }>;
   };
   fifthSection?: {
+    content?: BlockContent;
+  };
+  sixthSection?: {
     heading?: BlockContent;
-    gridContent?: {
-      content?: Array<{
-        icon?: string;
-        heading?: string;
-        text?: string;
-        _key: string;
-      }>;
-    };
   };
 } | null;
 // Variable: CONTACT_QUERY

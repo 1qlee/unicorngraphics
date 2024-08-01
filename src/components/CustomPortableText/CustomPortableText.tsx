@@ -59,7 +59,7 @@ export function CustomPortableText({
         return <Heading as="h2" size="8" mb="4" weight="regular">{children}</Heading>
       },
       h3: ({ children }) => {
-        return <Heading as="h2" size="7" mb="4" weight="regular">{children}</Heading>
+        return <Heading as="h3" size="7" mb="4" weight="regular">{children}</Heading>
       },
       normal: ({ children }) => {
         return <Text as="p" size="4" mb="4" color="gray">{children}</Text>

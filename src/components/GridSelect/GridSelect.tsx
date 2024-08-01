@@ -1,11 +1,12 @@
 import type { Slug } from "@/root/sanity.types"
-import { Box, Card, Flex, Grid, Heading, Text } from "@radix-ui/themes";
+import { Box, Grid, Heading } from "@radix-ui/themes";
 import styles from "./GridSelect.module.scss"
 import Link from "next/link";
 import Image from "next/image";
 import { urlFor } from "../../sanity/lib/image";
 import PlaceholderImg from "@/public/images/600x400.jpg"
 import ImageBox from "../ImageBox/ImageBox";
+import { ArrowTopRightIcon } from "@radix-ui/react-icons";
 
 interface GridSelectProps {
   category: string;
@@ -40,17 +41,22 @@ function GridSelect({
   return (
     <Grid
       columns={columns}
-      gap="4"
+      gap="6"
     >
       {data.map((item) => (
         <Link
           key={item._id}
           href={`/${category}/${item.slug?.current}`}
-          className={styles.GridSelectCol}
+          className={styles.Col}
         >
           <article
-            className={styles.GridSelectCard}
+            className={styles.Card}
           >
+            <ArrowTopRightIcon 
+              className={styles.Icon}
+              height={24}
+              width={24}
+            />
             <Box
               width="100%"
               height="300px"
@@ -64,12 +70,7 @@ function GridSelect({
                 />
               </ImageBox>
             </Box>
-            <Box
-              className={styles.GridSelectContent}
-            >
-              <Heading as="h3" size="4" my="2">{item.title}</Heading>
-              <Text as="p" color="gray" size="3">{item.description}</Text>
-            </Box>
+            <Heading className={styles.Text} as="h3" size="4">{item.title}</Heading>
           </article>
         </Link>
       ))}

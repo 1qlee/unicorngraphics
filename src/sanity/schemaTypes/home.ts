@@ -40,7 +40,7 @@ export default defineType({
       name: "firstSection",
       title: "First Section",
       type: "object",
-      description: "This section will display directly below the hero  section (the main image). This is a two-column section with a heading section above it.",
+      description: "This section will display directly below the hero  section (the main image). This is a two-column section.",
       fields: [
         {
           name: "leftContent",
@@ -135,7 +135,7 @@ export default defineType({
       name: "thirdSection",
       title: "Third Section",
       type: "object",
-      description: "This section will display directly below the second section. This section will display all products.",
+      description: "This section will display all products. To edit products, go to the 'Product Pages' tab in the sidebar.",
       fields: [
         {
           name: "content",
@@ -149,7 +149,45 @@ export default defineType({
       name: "fourthSection",
       title: "Fourth Section",
       type: "object",
-      description: "This section will display directly below the fourth section. This section will display all services.",
+      description: "This is a two-column section.",
+      fields: [
+        {
+          name: "content",
+          title: "Left Side Content",
+          type: "blockContent",
+          description: "This text will display on the left-side column."
+        },
+        {
+          name: "grid",
+          title: "Grid Content",
+          description: "This content should be a 2x2 grid, but can expand to accommodate more items. It will display on the right-side column.",
+          type: "array",
+          of: [
+            {
+              type: "object",
+              fields: [
+                icon,
+                {
+                  name: "heading",
+                  type: "string",
+                  title: "Heading"
+                },
+                {
+                  name: "text",
+                  type: "string",
+                  title: "Text"
+                }
+              ]
+            }
+          ]
+        },
+      ]
+    }),
+    defineField({
+      name: "fifthSection",
+      title: "Fifth Section",
+      type: "object",
+      description: "This section will display all services. To edit services, go to the 'Service Pages' tab in the sidebar.",
       fields: [
         {
           name: "content",
@@ -160,10 +198,10 @@ export default defineType({
       ]
     }),
     defineField({
-      name: "fifthSection",
-      title: "Fifth Section",
+      name: "sixthSection",
+      title: "Sixth Section",
       type: "object",
-      description: "This section will display directly below the third section. This is a three-column section.",
+      description: "This section will display directly below the fourth section. This section will display all services.",
       fields: [
         {
           name: "heading",
@@ -171,37 +209,6 @@ export default defineType({
           type: "blockContent",
           description: "This text will display above all other content in this section."
         },
-        {
-          name: "gridContent",
-          title: "Grid Content",
-          type: "object",
-          description: "This will display below the two-column section. This is a grid that will expand to as many columns as items inputted.",
-          fields: [
-            {
-              name: "content",
-              title: "Content",
-              type: "array",
-              of: [
-                {
-                  type: "object",
-                  fields: [
-                    icon,
-                    {
-                      name: "heading",
-                      type: "string",
-                      title: "Heading"
-                    },
-                    {
-                      name: "text",
-                      type: "string",
-                      title: "Text"
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
       ]
     }),
   ],

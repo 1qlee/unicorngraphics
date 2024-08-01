@@ -4,9 +4,10 @@
 }
 
 .Item {
-  padding: var(--space-6);
+  padding: var(--space-5);
   border: 1px solid black;
   margin-left: -1px;
+  margin-bottom: -1px;
 
   &:first-child {
     border-top-left-radius: var(--radius-2);
@@ -16,13 +17,5 @@
   &:last-child {
     border-top-right-radius: var(--radius-2);
     border-bottom-right-radius: var(--radius-2);
-  }
-
-  h3 {
-    color: var(--gray-12);
-  }
-
-  p {
-    color: var(--gray-9);
   }
 }
