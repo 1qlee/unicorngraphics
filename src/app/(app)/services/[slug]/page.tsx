@@ -34,7 +34,9 @@ export default async function Page({ params }: { params: QueryParams }) {
 
   return (
     <main>
-      <Hero data={page} />
+      {page && (
+        <Hero data={page} />
+      )}
       <Section>
         <ResponsiveContainer>
           <CustomPortableText value={page?.infoText ?? []} />
