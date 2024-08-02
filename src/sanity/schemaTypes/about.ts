@@ -17,7 +17,7 @@ export default defineType({
           name: 'heroContent',
           title: 'Hero Content',
           type: 'blockContent',
-          description: "This text will display on the bottom left side of the hero section. Please do NOT use black or gray colored text."
+          description: "This text will display in the center of the hero section. Please do NOT use black or gray colored text."
         },
         {
           name: 'heroImage',
@@ -85,6 +85,39 @@ export default defineType({
               ]
             }
           ]
+        },
+      ]
+    }),
+    defineField({
+      name: "thirdSection",
+      title: "Third Section",
+      type: "object",
+      description: "This is a two-column section.",
+      fields: [
+        {
+          name: "leftContent",
+          type: "blockContent",
+          title: "Left Side Content",
+          description: "This will display on the left half of the section."
+        },
+        {
+          name: "rightContent",
+          type: "blockContent",
+          title: "Right Side Content",
+          description: "This will display on the right half of the section."
+        }
+      ]
+    }),
+    defineField({
+      name: "fourthSection",
+      title: "Fourth Section",
+      type: "object",
+      description: "This is a single column, vertically and horizontally centered section.",
+      fields: [
+        {
+          name: "heading",
+          title: "Heading",
+          type: "blockContent",
         },
       ]
     }),

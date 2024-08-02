@@ -14,10 +14,30 @@ export default defineType({
       description: "This content block will appear on both /contact and in the contact us pop-up."
     }),
     defineField({
-      name: 'sidebarText',
-      title: 'Sidebar Text',
-      type: 'blockContent',
-      description: "This content block will appear on adjacent to the contact form only on /contact."
+      name: 'content',
+      title: 'Content',
+      type: 'object',
+      description: "This content block will appear below the contact form only on /contact.",
+      fields: [
+        defineField({
+          name: 'leftContent',
+          title: 'Left Side Content',
+          type: 'blockContent',
+          description: "This will appear at the left side of a two-column section."
+        }),
+        defineField({
+          name: 'middleContent',
+          title: 'Middle Content',
+          type: 'blockContent',
+          description: "This will appear at the left side of a two-column section."
+        }),
+        defineField({
+          name: 'rightContent',
+          title: 'Right Side Content',
+          type: 'blockContent',
+          description: "This will appear at the right side of a two-column section."
+        }),
+      ]
     }),
   ],
 })

@@ -8,7 +8,7 @@ import {
   PRODUCTS_QUERYResult,
 } from "@/root/sanity.types";
 import { Grid, Section, Box } from "@radix-ui/themes";
-import HeroAlt from "@/components/Hero/HeroAlt";
+import Hero from "@/components/Hero/Hero";
 import { CustomPortableText } from "@/components/CustomPortableText/CustomPortableText";
 import ResponsiveContainer from "@/components/ResponsiveContainer/ResponsiveContainer";
 import ImageBox from "@/components/ImageBox/ImageBox";
@@ -50,7 +50,9 @@ export default async function Page({ params }: { params: QueryParams }) {
 
   return (
     <main>
-      <HeroAlt data={page} />
+      {page && (
+        <Hero data={page} />
+      )}
       <Section>
         <ResponsiveContainer>
           <Box>
@@ -58,7 +60,7 @@ export default async function Page({ params }: { params: QueryParams }) {
           </Box>
           <Grid
             gap="6"
-            columns="repeat(4, minmax(0, 1fr))"
+            columns="repeat(auto-fit, minmax(300px, 1fr))"
             align="start"
           >
             {imageGridChunks.map((chunk, index) => (

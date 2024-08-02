@@ -5,6 +5,7 @@ import { CONTACT_QUERY } from "@/root/src/sanity/lib/queries";
 import { CONTACT_QUERYResult } from "@/root/sanity.types";
 import ContactForm from "@/root/src/components/ContactForm/ContactForm";
 import ResponsiveContainer from "@/root/src/components/ResponsiveContainer/ResponsiveContainer";
+import styles from "./Contact.module.scss"
 
 export default async function ContactPage() {
   const contact = await sanityFetch<CONTACT_QUERYResult>({
@@ -20,34 +21,56 @@ export default async function ContactPage() {
             align="center"
             justify="center"
           >
-            <Box>
+            <Box
+              maxWidth="600px"
+              className={styles.Hero}
+            >
               <CustomPortableText align="center" value={contact?.hero ?? []} />
             </Box>
           </Flex>
         </ResponsiveContainer>
         <Section>
           <ResponsiveContainer>
-            <Grid
-              columns="repeat(auto-fit, minmax(300px, 1fr))"
-              gap="6"
+            <Flex
+              direction="column"
+              align="center"
+              justify="center"
             >
-              <Box
-                p="6"
-                style={{
-                  borderRadius: "var(--radius-2)",
-                  boxShadow: "var(--shadow-4)",
-                }}
-              >
-                <ContactForm isDialog={false} />
-              </Box>
               <Box>
-                <CustomPortableText 
-                  pSize="3"
-                  pMargin="3"
-                  value={contact?.sidebarText ?? []} 
-                />
+                <Box
+                  maxWidth="600px"
+                  p="6"
+                  mb="9"
+                  mx="auto"
+                  style={{
+                    borderRadius: "var(--radius-2)",
+                    boxShadow: "var(--shadow-4)",
+                  }}
+                >
+                  <ContactForm isDialog={false} />
+                </Box>
+                <Grid
+                  columns="repeat(auto-fit, minmax(200px, 1fr))"
+                  gap="6"
+                >
+                  <Box>
+                    <CustomPortableText
+                      value={contact?.content?.leftContent ?? []}
+                    />
+                  </Box>
+                  <Box>
+                    <CustomPortableText
+                      value={contact?.content?.middleContent ?? []}
+                    />
+                  </Box>
+                  <Box>
+                    <CustomPortableText
+                      value={contact?.content?.rightContent ?? []}
+                    />
+                  </Box>
+                </Grid>
               </Box>
-            </Grid>
+            </Flex>
           </ResponsiveContainer>
         </Section>
       </Section>

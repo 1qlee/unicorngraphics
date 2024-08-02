@@ -37,7 +37,7 @@ function Footer({
         >
           <Separator
             size="4"
-            my="9"
+            my="6"
           />
           <Grid
             columns="repeat(auto-fit, minmax(160px, 1fr))"

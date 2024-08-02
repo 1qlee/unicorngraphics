@@ -18,7 +18,7 @@ export default defineType({
           name: 'heroContent',
           title: 'Hero Content',
           type: 'blockContent',
-          description: "This text will display on the bottom left side of the hero section. Please do NOT use black or gray colored text."
+          description: "This text will display in the center of the hero section. Please do NOT use black or gray colored text."
         },
         {
           name: 'heroImage',
@@ -91,13 +91,19 @@ export default defineType({
       name: "secondSection",
       title: "Second Section",
       type: "object",
-      description: "This section will display directly below the first section. This is a visually centered section.",
+      description: "This is a two-column section above all of the client images which are vertically and horizontally centered.",
       fields: [
         {
-          name: "heading",
-          title: "Heading",
+          title: "Left Side Content",
+          name: "leftContent",
           type: "blockContent",
-          description: "This text will display above all other content in this section. The text will be aligned in the center."
+          description: "This text will display on the left side half. Use it for a header."
+        },
+        {
+          name: "rightContent",
+          title: "Right Side Content",
+          type: "blockContent",
+          description: "This text will display on the right side half. Use it for a description."
         },
         {
           name: "slider",
@@ -138,35 +144,46 @@ export default defineType({
       description: "This section will display all products. To edit products, go to the 'Product Pages' tab in the sidebar.",
       fields: [
         {
-          name: "content",
-          title: "Content",
+          name: "leftContent",
+          title: "Left Side Content",
           type: "blockContent",
-          description: "This text will display above all product cards."
-        }
+          description: "This text will display on the left-side column."
+        },
+        {
+          name: "rightContent",
+          title: "Right Side Content",
+          type: "blockContent",
+          description: "This text will display on the right-side column."
+        },
       ]
     }),
     defineField({
       name: "fourthSection",
       title: "Fourth Section",
       type: "object",
-      description: "This is a two-column section.",
+      description: "This is a two-column section with a multi-column section below it.",
       fields: [
         {
-          name: "content",
+          name: "leftContent",
           title: "Left Side Content",
           type: "blockContent",
           description: "This text will display on the left-side column."
         },
         {
+          name: "rightContent",
+          title: "Right Side Content",
+          type: "blockContent",
+          description: "This text will display on the right-side column."
+        },
+        {
           name: "grid",
           title: "Grid Content",
-          description: "This content should be a 2x2 grid, but can expand to accommodate more items. It will display on the right-side column.",
+          description: "Grid content will display below the two-column section. This is a grid that will expand to as many columns as items inputted.",
           type: "array",
           of: [
             {
               type: "object",
               fields: [
-                icon,
                 {
                   name: "heading",
                   type: "string",
@@ -190,24 +207,29 @@ export default defineType({
       description: "This section will display all services. To edit services, go to the 'Service Pages' tab in the sidebar.",
       fields: [
         {
-          name: "content",
-          title: "Content",
+          name: "leftContent",
+          title: "Left Side Content",
           type: "blockContent",
-          description: "This text will display above all service cards."
-        }
+          description: "This text will display on the left-side column."
+        },
+        {
+          name: "rightContent",
+          title: "Right Side Content",
+          type: "blockContent",
+          description: "This text will display on the right-side column."
+        },
       ]
     }),
     defineField({
       name: "sixthSection",
       title: "Sixth Section",
       type: "object",
-      description: "This section will display directly below the fourth section. This section will display all services.",
+      description: "This is a single column, vertically and horizontally centered section.",
       fields: [
         {
           name: "heading",
           title: "Heading",
-          type: "blockContent",
-          description: "This text will display above all other content in this section."
+          type: "blockContent"
         },
       ]
     }),

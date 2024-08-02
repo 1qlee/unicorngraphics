@@ -3,7 +3,7 @@ import styles from "./Level.module.scss";
 import DynamicIcon from "@/sanity/components/DynamicIcon";
 import { Avatar } from "@radix-ui/themes";
 
-type Color = "lime" | "orange";
+type Color = "lime" | "orange" | "indigo";
 
 interface LevelProps {
   data?: {
@@ -20,7 +20,7 @@ function Level({ data, color }: LevelProps) {
     <Grid
       className={styles.Grid}
       columns="repeat(auto-fit, minmax(300px, 1fr))"
-      gap="0"
+      gap="4"
       mt="9"
     >
       {data?.map(stat => (
@@ -34,6 +34,7 @@ function Level({ data, color }: LevelProps) {
             fallback={<DynamicIcon icon={stat.icon || ""} height="32px" width="32px" />}
             mb="4"
             color={color}
+            variant="solid"
           />
           <Flex align="start" gap="2">
             <Box>

@@ -4,7 +4,7 @@ import * as Form from "@radix-ui/react-form"
 import { useState, useRef } from "react"
 import { Flex, Text, TextField, TextArea, Button, Spinner } from "@radix-ui/themes"
 import { sendContactEmail } from "@/actions/contact.action";
-import { EnvelopeClosedIcon } from "@radix-ui/react-icons";
+import { PaperPlaneIcon } from "@radix-ui/react-icons";
 import styles from "./ContactForm.module.scss"
 
 interface LabelProps {
@@ -182,15 +182,18 @@ export default function ContactForm({ isDialog }: { isDialog: boolean }) {
         <Button
           type="submit"
           form={changeNameForDialog("contact-form")}
-          size="3"
+          size="4"
           disabled={status.submitting ? true : false}
         >
           <Spinner
             loading={status.submitting ? true : false}
           >
-            <EnvelopeClosedIcon />
+            <PaperPlaneIcon
+              height={20}
+              width={20}
+            />
           </Spinner>
-          Send message
+          <span>Send message</span>
         </Button>
       </Flex>
     </Form.Root>

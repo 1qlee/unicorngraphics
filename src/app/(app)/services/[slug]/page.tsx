@@ -8,7 +8,7 @@ import {
   SERVICES_QUERYResult,
 } from "@/root/sanity.types";
 import { Box, Grid, Heading, Section } from "@radix-ui/themes";
-import HeroAlt from "@/components/Hero/HeroAlt";
+import Hero from "@/components/Hero/Hero";
 import { CustomPortableText } from "@/components/CustomPortableText/CustomPortableText";
 import ResponsiveContainer from "@/components/ResponsiveContainer/ResponsiveContainer";
 import ImageBox from "@/components/ImageBox/ImageBox";
@@ -34,7 +34,7 @@ export default async function Page({ params }: { params: QueryParams }) {
 
   return (
     <main>
-      <HeroAlt data={page} />
+      <Hero data={page} />
       <Section>
         <ResponsiveContainer>
           <CustomPortableText value={page?.infoText ?? []} />

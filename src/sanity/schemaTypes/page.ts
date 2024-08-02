@@ -11,6 +11,34 @@ export default defineType({
       type: "string",
     }),
     defineField({
+      name: 'heroSection',
+      title: 'Hero Section',
+      type: 'object',
+      description: 'This section will display at the top of the page. It is the first section viewers will see on the page.',
+      fields: [
+        {
+          name: 'heroContent',
+          title: 'Hero Content',
+          type: 'blockContent',
+          description: "This text will display in the center of the hero section. Please do NOT use black or gray colored text."
+        },
+        {
+          name: 'heroImage',
+          title: 'Hero Image',
+          type: 'image',
+          description: 'This is the background image for the hero section. It will have a black overlay to make the text more readable.',
+          fields: [
+            {
+              name: 'alt',
+              type: 'string',
+              title: 'Alternative Text',
+              description: "This text will display instead of an image when the image fails to load."
+            }
+          ]
+        }
+      ]
+    }),
+    defineField({
       name: "slug",
       title: "Slug",
       type: "slug",

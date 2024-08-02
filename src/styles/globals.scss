@@ -89,3 +89,12 @@ fieldset {
 strong {
   font-weight: 500;
 }
+
+@media screen and (max-width: 520px) {
+  h1 {
+    font-size: 48px !important;
+  }
+  p {
+    font-size: 16px !important;
+  }
+}

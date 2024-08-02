@@ -167,6 +167,21 @@ export type Page = {
   _updatedAt: string;
   _rev: string;
   title?: string;
+  heroSection?: {
+    heroContent?: BlockContent;
+    heroImage?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "image";
+    };
+  };
   slug?: Slug;
   infoText?: BlockContent;
   mainImage?: {
@@ -248,6 +263,13 @@ export type About = {
       _key: string;
     }>;
   };
+  thirdSection?: {
+    leftContent?: BlockContent;
+    rightContent?: BlockContent;
+  };
+  fourthSection?: {
+    heading?: BlockContent;
+  };
 };
 
 export type Contact = {
@@ -257,7 +279,11 @@ export type Contact = {
   _updatedAt: string;
   _rev: string;
   hero?: BlockContent;
-  sidebarText?: BlockContent;
+  content?: {
+    leftContent?: BlockContent;
+    middleContent?: BlockContent;
+    rightContent?: BlockContent;
+  };
 };
 
 export type Home = {
@@ -294,7 +320,8 @@ export type Home = {
     };
   };
   secondSection?: {
-    heading?: BlockContent;
+    leftContent?: BlockContent;
+    rightContent?: BlockContent;
     slider?: Array<{
       image?: {
         asset?: {
@@ -313,19 +340,21 @@ export type Home = {
     }>;
   };
   thirdSection?: {
-    content?: BlockContent;
+    leftContent?: BlockContent;
+    rightContent?: BlockContent;
   };
   fourthSection?: {
-    content?: BlockContent;
+    leftContent?: BlockContent;
+    rightContent?: BlockContent;
     grid?: Array<{
-      icon?: string;
       heading?: string;
       text?: string;
       _key: string;
     }>;
   };
   fifthSection?: {
-    content?: BlockContent;
+    leftContent?: BlockContent;
+    rightContent?: BlockContent;
   };
   sixthSection?: {
     heading?: BlockContent;
@@ -393,12 +422,32 @@ export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: PAGE_QUERY
-// Query: *[_type == "page" && slug.current == $slug][0]{  _id, title, description, mainImage, infoText, imageGrid}
+// Query: *[_type == "page" && slug.current == $slug][0]
 export type PAGE_QUERYResult = {
   _id: string;
-  title: string | null;
-  description: string | null;
-  mainImage: {
+  _type: "page";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  heroSection?: {
+    heroContent?: BlockContent;
+    heroImage?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "image";
+    };
+  };
+  slug?: Slug;
+  infoText?: BlockContent;
+  mainImage?: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -409,9 +458,10 @@ export type PAGE_QUERYResult = {
     crop?: SanityImageCrop;
     alt?: string;
     _type: "image";
-  } | null;
-  infoText: BlockContent | null;
-  imageGrid: Array<{
+  };
+  category?: "product" | "service";
+  description?: string;
+  imageGrid?: Array<{
     image?: {
       asset?: {
         _ref: string;
@@ -426,7 +476,7 @@ export type PAGE_QUERYResult = {
     title?: string;
     alt?: string;
     _key: string;
-  }> | null;
+  }>;
 } | null;
 // Variable: PRODUCTS_QUERY
 // Query: *[_type == "page" && category == "product"]
@@ -437,6 +487,21 @@ export type PRODUCTS_QUERYResult = Array<{
   _updatedAt: string;
   _rev: string;
   title?: string;
+  heroSection?: {
+    heroContent?: BlockContent;
+    heroImage?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "image";
+    };
+  };
   slug?: Slug;
   infoText?: BlockContent;
   mainImage?: {
@@ -479,6 +544,21 @@ export type SERVICES_QUERYResult = Array<{
   _updatedAt: string;
   _rev: string;
   title?: string;
+  heroSection?: {
+    heroContent?: BlockContent;
+    heroImage?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "image";
+    };
+  };
   slug?: Slug;
   infoText?: BlockContent;
   mainImage?: {
@@ -601,7 +681,8 @@ export type HOME_QUERYResult = {
     };
   };
   secondSection?: {
-    heading?: BlockContent;
+    leftContent?: BlockContent;
+    rightContent?: BlockContent;
     slider?: Array<{
       image?: {
         asset?: {
@@ -620,19 +701,21 @@ export type HOME_QUERYResult = {
     }>;
   };
   thirdSection?: {
-    content?: BlockContent;
+    leftContent?: BlockContent;
+    rightContent?: BlockContent;
   };
   fourthSection?: {
-    content?: BlockContent;
+    leftContent?: BlockContent;
+    rightContent?: BlockContent;
     grid?: Array<{
-      icon?: string;
       heading?: string;
       text?: string;
       _key: string;
     }>;
   };
   fifthSection?: {
-    content?: BlockContent;
+    leftContent?: BlockContent;
+    rightContent?: BlockContent;
   };
   sixthSection?: {
     heading?: BlockContent;
@@ -647,7 +730,11 @@ export type CONTACT_QUERYResult = {
   _updatedAt: string;
   _rev: string;
   hero?: BlockContent;
-  sidebarText?: BlockContent;
+  content?: {
+    leftContent?: BlockContent;
+    middleContent?: BlockContent;
+    rightContent?: BlockContent;
+  };
 } | null;
 // Variable: ABOUT_QUERY
 // Query: *[_type == "about"][0]
@@ -691,5 +778,12 @@ export type ABOUT_QUERYResult = {
       _type: "image";
       _key: string;
     }>;
+  };
+  thirdSection?: {
+    leftContent?: BlockContent;
+    rightContent?: BlockContent;
+  };
+  fourthSection?: {
+    heading?: BlockContent;
   };
 } | null;

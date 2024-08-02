@@ -44,6 +44,7 @@ function Hero({ data }: HeroProps) {
             align="center"
             justify="center"
             direction="column"
+            width="100%"
           >
             <Box
               p="4"

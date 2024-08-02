@@ -2,9 +2,7 @@
 
 import { groq } from "next-sanity";
 
-export const PAGE_QUERY = groq`*[_type == "page" && slug.current == $slug][0]{
-  _id, title, description, mainImage, infoText, imageGrid
-}`;
+export const PAGE_QUERY = groq`*[_type == "page" && slug.current == $slug][0]`;
 
 export const PRODUCTS_QUERY = groq`*[_type == "page" && category == "product"]`;
 

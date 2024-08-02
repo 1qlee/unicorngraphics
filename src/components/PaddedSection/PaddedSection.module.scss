@@ -1,6 +1,10 @@
 .Section {
   padding: 9rem 0;
   box-sizing: border-box;
-  max-width: 2160px;
+  max-width: 1920px;
   margin: 0 auto;
+
+  @media screen and (max-width: 520px) {
+    padding: 4rem 0;
+  }
 }

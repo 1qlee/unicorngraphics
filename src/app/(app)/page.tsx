@@ -9,7 +9,7 @@ import { CustomPortableText } from "@/components/CustomPortableText/CustomPortab
 import { HOME_QUERY, PRODUCTS_QUERY, SERVICES_QUERY } from "@/sanity/lib/queries";
 import { HOME_QUERYResult, PRODUCTS_QUERYResult, SERVICES_QUERYResult } from "@/root/sanity.types";
 import { Metadata } from "next";
-import { Box, Grid, Flex, Avatar, Heading, Text } from "@radix-ui/themes";
+import { Box, Grid, Flex, Avatar, Heading, Text, Separator } from "@radix-ui/themes";
 import { sanityFetch } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import PaddedSection from "@/components/PaddedSection/PaddedSection";
@@ -60,76 +60,14 @@ export default async function Page() {
                 />
               </Box>
             </Grid>
-            <Level color="orange" data={data?.firstSection?.gridContent?.content ?? []} />
+            <Level color="lime" data={data?.firstSection?.gridContent?.content ?? []} />
           </ResponsiveContainer>
         </PaddedSection>
       )}
       {/* SECOND SECTION */}
       {data?.secondSection && (
         <PaddedSection
-          style = {{ backgroundColor: "var(--orange-3)" }}
-        >
-          <ResponsiveContainer>
-            <Grid
-              columns={{ initial: "auto", md: "1fr 2fr" }}
-              gap="4"
-            >
-              <Box maxWidth={TEXTBOX_MAX_WIDTH}>
-                <CustomPortableText
-                  value={data?.secondSection?.heading ?? []}
-                />
-              </Box>
-              <Flex
-                gap="0"
-                justify={{ initial: "center", md: "end" }}
-                align="center"
-                wrap="wrap"
-              >
-                {data?.secondSection?.slider?.map((item) => (
-                  <Box key={item._key}>
-                    <ImageBox>
-                      <Image
-                        key={item._key}
-                        src={item?.image?.asset?._ref ? urlFor(item?.image?.asset._ref).url() : 'https://placehold.co/400x600.jpg'}
-                        alt={item.alt ?? 'Slider image'}
-                        width={160}
-                        height={80}
-                      />
-                    </ImageBox>
-                  </Box>
-                ))}
-              </Flex>
-            </Grid>
-          </ResponsiveContainer>
-        </PaddedSection>
-      )}
-      {/* THIRD SECTION */}
-      {data?.thirdSection && (
-        <PaddedSection>
-          <ResponsiveContainer>
-            <Grid
-              columns="minmax(0, 1fr)"
-              gap="4"
-            >
-              <Box
-                mb="3"
-                maxWidth={TEXTBOX_MAX_WIDTH}
-              >
-                <CustomPortableText value={data?.thirdSection?.content ?? []} />
-              </Box>
-            </Grid>
-            <GridSelect
-              columns="repeat(auto-fit, minmax(320px, 1fr))"
-              category="products"
-              data={products}
-            />
-          </ResponsiveContainer>
-        </PaddedSection>
-      )}
-      {/* FOURTH SECTION */}
-      {data?.fourthSection && (
-        <PaddedSection
-          style={{ backgroundColor: "var(--lime-3)" }}
+          style = {{ backgroundColor: "var(--accent-3)" }}
         >
           <ResponsiveContainer>
             <Grid
@@ -138,39 +76,116 @@ export default async function Page() {
             >
               <Box maxWidth={TEXTBOX_MAX_WIDTH}>
                 <CustomPortableText
-                  value={data?.fourthSection?.content ?? []}
+                  value={data?.secondSection?.leftContent ?? []}
                 />
               </Box>
-              <Grid
-                columns="repeat(auto-fit, minmax(300px, 1fr))"
-                gap="0"
-              >
-                {data?.fourthSection?.grid?.map((item) => (
-                  <Box
-                    key={item._key}
-                    p="5"
-                    style={{
-                      border: "1px solid black",
-                      borderRadius: "var(--radius-2)",
-                      marginRight: "-1px",
-                      marginBottom: "-1px",
-                    }}
-                  >
-                    <Avatar 
-                      size="4" 
-                      color="lime" 
-                      mb="4"
-                      fallback={<DynamicIcon icon={item.icon || ""} height="32px" width="32px" />}
+              <Box>
+                <CustomPortableText
+                  value={data?.secondSection?.rightContent ?? []}
+                />
+              </Box>
+            </Grid>
+            <Separator 
+              size="4"
+              my="6"
+              style={{ backgroundColor: "var(--gray-12)" }}
+            />
+            <Flex
+              gap="4"
+              justify="center"
+              align="center"
+              wrap="wrap"
+            >
+              {data?.secondSection?.slider?.map((item) => (
+                <Box key={item._key}>
+                  <ImageBox>
+                    <Image
+                      key={item._key}
+                      src={item?.image?.asset?._ref ? urlFor(item?.image?.asset._ref).url() : 'https://placehold.co/400x600.jpg'}
+                      alt={item.alt ?? 'Slider image'}
+                      width={160}
+                      height={80}
                     />
-                    <Heading as="h3" size="6" mb="2">
-                      {item?.heading}
-                    </Heading>
-                    <Text as="p" size="3" color="gray">
-                      {item?.text}
-                    </Text>
-                  </Box>
-                ))}
-              </Grid>
+                  </ImageBox>
+                </Box>
+              ))}
+            </Flex>
+          </ResponsiveContainer>
+        </PaddedSection>
+      )}
+      {/* THIRD SECTION */}
+      {data?.thirdSection && (
+        <PaddedSection>
+          <ResponsiveContainer>
+            <Grid
+              columns="repeat(auto-fit, minmax(300px, 1fr))"
+              gap="4"
+              mb="6"
+            >
+              <Box
+                maxWidth={TEXTBOX_MAX_WIDTH}
+              >
+                <CustomPortableText value={data?.thirdSection?.leftContent ?? []} />
+              </Box>
+              <Box>
+                <CustomPortableText value={data?.thirdSection?.rightContent ?? []} />
+              </Box>
+            </Grid>
+            <GridSelect
+              columns="repeat(auto-fit, minmax(300px, 1fr))"
+              category="products"
+              data={products}
+            />
+          </ResponsiveContainer>
+        </PaddedSection>
+      )}
+      {/* FOURTH SECTION */}
+      {data?.fourthSection && (
+        <PaddedSection>
+          <ResponsiveContainer>
+            <Grid
+              columns="repeat(auto-fit, minmax(300px, 1fr))"
+              gap="4"
+              mb="6"
+            >
+              <Box maxWidth={TEXTBOX_MAX_WIDTH}>
+                <CustomPortableText
+                  value={data?.fourthSection?.leftContent ?? []}
+                />
+              </Box>
+              <Box>
+                <CustomPortableText
+                  value={data?.fourthSection?.rightContent ?? []}
+                />
+              </Box>
+            </Grid>
+            <Grid
+              columns="repeat(auto-fit, minmax(300px, 1fr))"
+              gap="4"
+            >
+              {data?.fourthSection?.grid?.map((item, index) => (
+                <Box
+                  key={item._key}
+                  style={{ 
+                    borderTop: "1px solid var(--gray-12)",
+                    paddingTop: "var(--space-5)"
+                  }}
+                >
+                  <Avatar
+                    size="3"
+                    color="orange"
+                    variant="solid"
+                    mb="4"
+                    fallback={index + 1}
+                  />
+                  <Heading as="h3" size="6" mb="2">
+                    {item?.heading}
+                  </Heading>
+                  <Text as="p" size="3" color="gray">
+                    {item?.text}
+                  </Text>
+                </Box>
+              ))}
             </Grid>
           </ResponsiveContainer>
         </PaddedSection>
@@ -180,18 +195,21 @@ export default async function Page() {
         <PaddedSection>
           <ResponsiveContainer>
             <Grid
-              columns="minmax(0, 1fr)"
+              columns="repeat(auto-fit, minmax(300px, 1fr))"
               gap="4"
+              mb="6"
             >
               <Box
-                mb="3"
                 maxWidth={TEXTBOX_MAX_WIDTH}
               >
-                <CustomPortableText value={data?.fifthSection?.content ?? []} />
+                <CustomPortableText value={data?.fifthSection?.leftContent ?? []} />
+              </Box>
+              <Box>
+                <CustomPortableText value={data?.fifthSection?.rightContent ?? []} />
               </Box>
             </Grid>
             <GridSelect
-              columns="repeat(auto-fit, minmax(400px, 1fr))"
+              columns="repeat(auto-fit, minmax(300px, 1fr))"
               category="services"
               data={services}
             />
