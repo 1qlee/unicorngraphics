@@ -1,15 +1,15 @@
+import Hero from '@/components/Hero/Hero';
+import Image from 'next/image';
+import ImageBox from '@/components/ImageBox/ImageBox';
+import ResponsiveContainer from '@/components/ResponsiveContainer/ResponsiveContainer';
+import PaddedSection from '@/root/src/components/PaddedSection/PaddedSection';
+import type { Metadata } from 'next';
+import { ABOUT_QUERY, BANNER_QUERY } from '@/sanity/lib/queries';
+import { ABOUT_QUERYResult, BANNER_QUERYResult } from '@/root/sanity.types';
 import { Box, Grid, Section } from '@radix-ui/themes';
 import { CustomPortableText } from '@/components/CustomPortableText/CustomPortableText';
-import ResponsiveContainer from '@/components/ResponsiveContainer/ResponsiveContainer';
-import { ABOUT_QUERY } from '@/sanity/lib/queries';
-import { ABOUT_QUERYResult } from '@/root/sanity.types';
 import { sanityFetch } from '@/sanity/lib/client';
-import Hero from '@/components/Hero/Hero';
-import type { Metadata } from 'next';
-import ImageBox from '@/components/ImageBox/ImageBox';
 import { urlFor } from '@/sanity/lib/image';
-import Image from 'next/image';
-import PaddedSection from '@/components/PaddedSection/PaddedSection';
 
 const TEXTBOX_MAX_WIDTH = { initial: "100%", md: "600px" };
 
@@ -21,6 +21,9 @@ export default async function AboutPage() {
   const data = await sanityFetch<ABOUT_QUERYResult>({
     query: ABOUT_QUERY,
   })
+  const banner = await sanityFetch<BANNER_QUERYResult>({
+    query: BANNER_QUERY,
+  });
 
   return (
     <main>
@@ -89,14 +92,14 @@ export default async function AboutPage() {
           </Grid>
         </ResponsiveContainer>
       </Section>
-      {data?.fourthSection && (
+      {banner && (
         <PaddedSection
           style={{ backgroundColor: "var(--accent-3)" }}
         >
           <ResponsiveContainer>
             <Box maxWidth={TEXTBOX_MAX_WIDTH} mx="auto" style={{ textAlign: "center" }}>
               <CustomPortableText
-                value={data?.fourthSection?.heading ?? []}
+                value={banner?.content ?? []}
               />
             </Box>
           </ResponsiveContainer>

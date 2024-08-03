@@ -14,7 +14,6 @@ import Level from "@/components/Level/Level";
 import PaddedSection from "@/components/PaddedSection/PaddedSection";
 import ResponsiveContainer from "@/components/ResponsiveContainer/ResponsiveContainer";
 
-
 const TEXTBOX_MAX_WIDTH = { initial: "100%", md: "600px" };
 
 export const metadata: Metadata = {
