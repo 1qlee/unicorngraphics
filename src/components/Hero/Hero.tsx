@@ -32,8 +32,7 @@ function Hero({ data }: HeroProps) {
   
   return (
     <Section
-      pb="9"
-      pt="0"
+      py="0"
     >
       <ResponsiveContainer
         flexGrow="1"

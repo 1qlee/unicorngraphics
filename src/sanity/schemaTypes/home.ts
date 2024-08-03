@@ -68,7 +68,6 @@ export default defineType({
                 {
                   type: "object",
                   fields: [
-                    icon,
                     {
                       name: "heading",
                       type: "string",
@@ -217,19 +216,6 @@ export default defineType({
           title: "Right Side Content",
           type: "blockContent",
           description: "This text will display on the right-side column."
-        },
-      ]
-    }),
-    defineField({
-      name: "sixthSection",
-      title: "Sixth Section",
-      type: "object",
-      description: "This is a single column, vertically and horizontally centered section.",
-      fields: [
-        {
-          name: "heading",
-          title: "Heading",
-          type: "blockContent"
         },
       ]
     }),

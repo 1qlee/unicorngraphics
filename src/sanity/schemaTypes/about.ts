@@ -108,18 +108,5 @@ export default defineType({
         }
       ]
     }),
-    defineField({
-      name: "fourthSection",
-      title: "Fourth Section",
-      type: "object",
-      description: "This is a single column, vertically and horizontally centered section.",
-      fields: [
-        {
-          name: "heading",
-          title: "Heading",
-          type: "blockContent",
-        },
-      ]
-    }),
   ],
 })

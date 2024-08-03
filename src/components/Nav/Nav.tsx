@@ -85,7 +85,7 @@ function Nav({
                           key={product._id}
                           href={`/products/${product.slug?.current}`}
                           heading={product.title}
-                          image={product.mainImage}
+                          image={product?.heroSection?.heroImage}
                           hasImg={true}
                         />
                       ))}
@@ -114,7 +114,7 @@ function Nav({
                           key={service._id}
                           href={`/services/${service.slug?.current}`}
                           heading={service.title}
-                          image={service.mainImage}
+                          image={service?.heroSection?.heroImage}
                           hasImg={true}
                         />
                       ))}

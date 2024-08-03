@@ -1,18 +1,19 @@
-import DynamicIcon from "@/sanity/components/DynamicIcon";
+import { HOME_QUERY, PRODUCTS_QUERY, SERVICES_QUERY, BANNER_QUERY } from "@/sanity/lib/queries";
+import { HOME_QUERYResult, PRODUCTS_QUERYResult, SERVICES_QUERYResult, BANNER_QUERYResult } from "@/root/sanity.types";
+import { Metadata } from "next";
+import { sanityFetch } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
+
+import { Box, Grid, Flex, Avatar, Heading, Text, Separator } from "@radix-ui/themes";
+import { CustomPortableText } from "@/components/CustomPortableText/CustomPortableText";
 import GridSelect from "@/components/GridSelect/GridSelect";
 import Hero from "@/components/Hero/Hero";
 import Image from "next/image";
 import ImageBox from "@/components/ImageBox/ImageBox";
 import Level from "@/components/Level/Level";
-import ResponsiveContainer from "@/components/ResponsiveContainer/ResponsiveContainer";
-import { CustomPortableText } from "@/components/CustomPortableText/CustomPortableText";
-import { HOME_QUERY, PRODUCTS_QUERY, SERVICES_QUERY } from "@/sanity/lib/queries";
-import { HOME_QUERYResult, PRODUCTS_QUERYResult, SERVICES_QUERYResult } from "@/root/sanity.types";
-import { Metadata } from "next";
-import { Box, Grid, Flex, Avatar, Heading, Text, Separator } from "@radix-ui/themes";
-import { sanityFetch } from "@/sanity/lib/client";
-import { urlFor } from "@/sanity/lib/image";
 import PaddedSection from "@/components/PaddedSection/PaddedSection";
+import ResponsiveContainer from "@/components/ResponsiveContainer/ResponsiveContainer";
+
 
 const TEXTBOX_MAX_WIDTH = { initial: "100%", md: "600px" };
 
@@ -29,6 +30,9 @@ export default async function Page() {
   });
   const services = await sanityFetch<SERVICES_QUERYResult>({
     query: SERVICES_QUERY,
+  });
+  const banner = await sanityFetch<BANNER_QUERYResult>({
+    query: BANNER_QUERY,
   });
 
   return (
@@ -216,15 +220,14 @@ export default async function Page() {
           </ResponsiveContainer>
         </PaddedSection>
       )}
-      {/* SIXTH SECTION */}
-      {data?.sixthSection && (
+      {banner && (
         <PaddedSection
           style={{ backgroundColor: "var(--accent-3)" }}
         >
           <ResponsiveContainer>
             <Box maxWidth={TEXTBOX_MAX_WIDTH} mx="auto" style={{ textAlign: "center" }}>
               <CustomPortableText
-                value={data?.sixthSection?.heading ?? []}
+                value={banner?.content ?? []}
               />
             </Box>
           </ResponsiveContainer>

@@ -20,6 +20,7 @@ import { sanityFetch } from "@/sanity/lib/client";
 
 import Footer from "@/components/Footer/Footer";
 import Nav from "@/components/Nav/Nav";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: {
@@ -98,6 +99,10 @@ export default async function RootLayout({
             settings={settings}
           />
         </Theme>
+        <Script
+          src="https://www.google.com/recaptcha/enterprise.js?render=6LfGcx4qAAAAAJ_vaYEVpgDV60jocqE29IzjrYOJ"
+          strategy="beforeInteractive"
+        />
       </body>
     </html>
   );

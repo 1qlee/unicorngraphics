@@ -1,7 +1,5 @@
 import { Grid, Heading, Text, Box, Flex } from "@radix-ui/themes";
 import styles from "./Level.module.scss";
-import DynamicIcon from "@/sanity/components/DynamicIcon";
-import { Avatar } from "@radix-ui/themes";
 
 type Color = "lime" | "orange" | "indigo";
 
@@ -29,13 +27,6 @@ function Level({ data, color }: LevelProps) {
           className={styles.Item}
           gap="2"
         >
-          <Avatar
-            size="4"
-            fallback={<DynamicIcon icon={stat.icon || ""} height="32px" width="32px" />}
-            mb="4"
-            color={color}
-            variant="solid"
-          />
           <Flex align="start" gap="2">
             <Box>
               <Heading as="h3" size="6" mb="2" weight="medium">{stat.heading}</Heading>

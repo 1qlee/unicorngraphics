@@ -15,6 +15,7 @@ import { apiVersion, dataset, projectId } from "./src/sanity/env";
 import { schema } from "./src/sanity/schema";
 import { resolve } from "@/sanity/presentation/resolve";
 import home from "@/sanity/schemaTypes/home";
+import banner from "@/sanity/schemaTypes/banner";
 import about from "@/sanity/schemaTypes/about";
 import contact from "@/sanity/schemaTypes/contact";
 import settings from "./src/sanity/schemaTypes/settings";
@@ -27,7 +28,7 @@ export default defineConfig({
   schema,
   plugins: [
     structureTool({
-      structure: pageStructure([home, about, contact]),
+      structure: pageStructure([home, about, contact, banner]),
     }),
     presentationTool({
       previewUrl: {
@@ -37,7 +38,7 @@ export default defineConfig({
       },
       resolve,
     }),
-    singletonPlugin([home.name, about.name, contact.name, settings.name]),
+    singletonPlugin([home.name, about.name, contact.name, settings.name,  banner.name]),
     // Vision is a tool that lets you query your content with GROQ in the studio
     // https://www.sanity.io/docs/the-vision-plugin
     visionTool({ defaultApiVersion: apiVersion }),
