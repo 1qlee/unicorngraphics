@@ -56,12 +56,6 @@ function CardLink({ children, heading, text, href, image, hasImg }: CardLinkProp
           >
             {heading}
           </Heading>
-          <Text
-            size="2"
-            color="gray"
-          >
-            {text}
-          </Text>
         </Flex>
       </Flex>
     </Link>

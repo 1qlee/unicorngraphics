@@ -48,8 +48,7 @@ function CollapsibleMenuItem({
             key={item._id}
             href={`/${category.charAt(0).toLowerCase() + category.slice(1)}/${item?.slug?.current}`}
             heading={item.title}
-            text={item.description}
-            image={item.mainImage}
+            image={item?.heroSection?.heroImage}
             hasImg={true}
           />
         ))}
