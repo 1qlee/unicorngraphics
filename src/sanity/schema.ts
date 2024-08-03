@@ -7,7 +7,7 @@ import contact from './schemaTypes/contact'
 import about from './schemaTypes/about'
 import settings from './schemaTypes/settings'
 import button from './schemaTypes/button'
-import banner from "./schemaTypes/Banner"
+import banner from "./schemaTypes/banner"
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [home, contact, about, page, blockContent, settings, button, banner ],

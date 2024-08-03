@@ -1,4 +1,4 @@
-import { defineField, defineType } from "sanity";
+import { defineType } from "sanity";
 import { ButtonIcon } from '@radix-ui/react-icons'
 import icon from "./icon";
 
