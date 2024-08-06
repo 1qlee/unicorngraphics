@@ -8,6 +8,7 @@ import '@radix-ui/themes/tokens/colors/lime.css';
 import '@radix-ui/themes/tokens/colors/slate.css';
 import '@radix-ui/themes/utilities.css'; 
 
+import { ReCaptchaProvider } from "next-recaptcha-v3"
 import type { Metadata } from "next";
 import { Jost } from "next/font/google"
 import { Theme } from '@radix-ui/themes';
@@ -20,7 +21,6 @@ import { sanityFetch } from "@/sanity/lib/client";
 
 import Footer from "@/components/Footer/Footer";
 import Nav from "@/components/Nav/Nav";
-import Script from "next/script";
 
 export const metadata: Metadata = {
   title: {
@@ -44,6 +44,7 @@ export default async function RootLayout({
 }>) {
   const products = await sanityFetch<PRODUCTS_QUERYResult>({
     query: PRODUCTS_QUERY,
+
   });
   const settings = await sanityFetch<SETTINGS_QUERYResult>({
     query: SETTINGS_QUERY,
@@ -58,51 +59,51 @@ export default async function RootLayout({
   return (
     <html lang="en" className={jost.className} suppressHydrationWarning>
       <body>
-        <Theme
-          accentColor="indigo"
-          grayColor="slate"
-          radius="full"
-          appearance="light"
-          scaling="110%"
-          style={{
-            backgroundColor: "var(--gray-1)"
-          }}
+        <ReCaptchaProvider
+          useEnterprise
         >
-          {draftMode().isEnabled && (
-            <Box
-              position="fixed"
-              bottom="2"
-              right="2"
-            >
-              <Link
-                href="/api/draft-mode/disable"
+          <Theme
+            accentColor="indigo"
+            grayColor="slate"
+            radius="full"
+            appearance="light"
+            scaling="110%"
+            style={{
+              backgroundColor: "var(--gray-1)"
+            }}
+          >
+            {draftMode().isEnabled && (
+              <Box
+                position="fixed"
+                bottom="2"
+                right="2"
               >
-                <Button
-                  variant="outline"
+                <Link
+                  href="/api/draft-mode/disable"
                 >
-                  Disable preview mode
-                </Button>
-              </Link>
-            </Box>
-          )}
-          <Nav 
-            products={products}
-            services={services}
-            settings={settings}
-            contact={contact}
-          />
-          {children}
-          {draftMode().isEnabled && <VisualEditing />}
-          <Footer 
-            products={products}
-            services={services}
-            settings={settings}
-          />
-        </Theme>
-        <Script
-          src="https://www.google.com/recaptcha/enterprise.js?render=6LfGcx4qAAAAAJ_vaYEVpgDV60jocqE29IzjrYOJ"
-          strategy="beforeInteractive"
-        />
+                  <Button
+                    variant="outline"
+                  >
+                    Disable preview mode
+                  </Button>
+                </Link>
+              </Box>
+            )}
+            <Nav 
+              products={products}
+              services={services}
+              settings={settings}
+              contact={contact}
+            />
+            {children}
+            {draftMode().isEnabled && <VisualEditing />}
+            <Footer 
+              products={products}
+              services={services}
+              settings={settings}
+            />
+          </Theme>
+        </ReCaptchaProvider>
       </body>
     </html>
   );

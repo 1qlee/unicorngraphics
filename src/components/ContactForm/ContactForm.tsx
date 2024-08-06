@@ -1,17 +1,12 @@
 "use client"
 
+import { useReCaptcha } from "next-recaptcha-v3"
 import * as Form from "@radix-ui/react-form"
-import { useState, useRef } from "react"
+import { useState, useCallback, useRef, FormEvent } from "react"
 import { Flex, Text, TextField, TextArea, Button, Spinner } from "@radix-ui/themes"
 import { sendContactEmail } from "@/actions/contact.action";
 import { PaperPlaneIcon } from "@radix-ui/react-icons";
 import styles from "./ContactForm.module.scss"
-
-interface LabelProps {
-  children: React.ReactNode;
-  text: string;
-  tag?: string;
-}
 
 interface StateProps {
   submitting: boolean;
@@ -35,6 +30,7 @@ function Label({ children, tag}: { children: React.ReactNode, tag: string }) {
 
 export default function ContactForm({ isDialog }: { isDialog: boolean }) {
   const formRef = useRef<HTMLFormElement>(null);
+  const { executeRecaptcha } = useReCaptcha();
   const [status, setStatus] = useState<StateProps>({
     submitting: false,
     code: null,
@@ -53,12 +49,28 @@ export default function ContactForm({ isDialog }: { isDialog: boolean }) {
     return name;
   }
 
-  async function handleSubmit(data: FormData) {
-    const startTime = performance.now();
+  const handleAction = useCallback(async (data: FormData) => {
+  
+    // Generate ReCaptcha token
+    const token = await executeRecaptcha("contact_form");
+
+    const validateToken = await fetch("/api/recaptcha", {
+      method: "POST",
+      body: JSON.stringify({
+        token,
+      })
+    });
+
+    if (!validateToken.ok) {
+      setStatus({
+        submitting: false,
+        code: validateToken.status,
+        message: "Are you a robot?",
+      });
+      return;
+    }
+
     const res = await sendContactEmail(data, isDialog);
-    const endTime = performance.now();
-    const duration = endTime - startTime;
-    console.log(`Data took ${duration} milliseconds to come back`);
 
     if (res) {
       setStatus({
@@ -66,20 +78,24 @@ export default function ContactForm({ isDialog }: { isDialog: boolean }) {
         code: res.status,
         message: res.message,
       });
-      
+
       if (formRef.current) {
         formRef.current.reset();
       }
     }
 
     setTimeout(() => setStatus({ ...status, message: "" }), 5000);
+  }, [executeRecaptcha]);
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    setStatus({ ...status, submitting: true });
   }
 
   return (
     <Form.Root
       id={formTag}
-      action={data => handleSubmit(data)}
-      onSubmit={() => setStatus({ ...status, submitting: true })}
+      action={data => handleAction(data)}
+      onSubmit={e => handleSubmit(e)}
       ref={formRef}
     >
       <Form.Field name={nameTag} className={styles.Field}>
@@ -172,17 +188,21 @@ export default function ContactForm({ isDialog }: { isDialog: boolean }) {
         align="center"
         gap="4"
       >
-        <Text
-          style={{
-            color: status.code === 200 ? "green" : "red",
-          }}
-        >
-          {status.message}
-        </Text>
+        {status.message && (
+          <Text
+            style={{
+              color: status.code === 200 ? "green" : "red",
+              flex: 1,
+            }}
+          >
+            {status.message}
+          </Text>
+        )}
         <Button
           type="submit"
           form={changeNameForDialog("contact-form")}
           size="4"
+          style={{flex: 1}}
           disabled={status.submitting ? true : false}
         >
           <Spinner
