@@ -32,11 +32,11 @@ export default async function AboutPage() {
         <Hero data={data} />
       )}
       {/* FIRST SECTION */}
-      <Section>
+      <Section pb="0">
         <ResponsiveContainer>
           <Grid
             columns="repeat(auto-fit, minmax(300px, 1fr))"
-            gap="8"
+            gap="4"
           >
             <Box maxWidth={TEXTBOX_MAX_WIDTH}>
               <CustomPortableText

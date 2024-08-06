@@ -32,7 +32,9 @@ export default async function Page({ pageData, bannerData }: { pageData: PAGE_QU
       {pageData && (
         <Hero data={pageData} />
       )}
-      <Section>
+      <Section
+        pb="0"
+      >
         <ResponsiveContainer>
           <Grid
             columns="repeat(auto-fit, minmax(300px, 1fr))"

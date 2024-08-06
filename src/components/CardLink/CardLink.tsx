@@ -1,10 +1,10 @@
+"use client"
+
 import React from "react";
-import { Text, Heading, Flex, Avatar } from "@radix-ui/themes";
+import { Heading, Flex, Avatar } from "@radix-ui/themes";
 import Link from "next/link";
 import styles from "./CardLink.module.scss";
 import { urlFor } from "@/sanity/lib/image";
-import { SanityImageCrop, SanityImageHotspot } from "@sanity/image-url/lib/types/types";
-import { internalGroqTypeReferenceTo } from "@/root/sanity.types";
 
 interface CardLinkProps {
   heading?: string | null;
@@ -21,13 +21,22 @@ interface CardLinkProps {
     _type: "image";
   } | null;
   children?: React.ReactNode;
+  onClick?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function CardLink({ children, heading, text, href, image, hasImg }: CardLinkProps) {
+function CardLink({ children, heading, text, href, image, hasImg, onClick }: CardLinkProps) {
+
+  function handleClick() {
+    if (onClick) {
+      onClick(false);
+    }
+  }
+
   return (
     <Link 
       href={`${href}`}
       style={{ textDecoration: "none" }}
+      onClick={handleClick}
     >
       <Flex
         className={styles.CardLink}
@@ -40,6 +49,7 @@ function CardLink({ children, heading, text, href, image, hasImg }: CardLinkProp
             src={image?.asset && urlFor(image?.asset?._ref).url()}
             alt={heading ?? ""}
             color="gray"
+            size="2"
             mr="2"
           />
         )}

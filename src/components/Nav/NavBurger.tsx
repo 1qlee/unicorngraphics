@@ -6,9 +6,10 @@ import styles from "./NavBurger.module.scss"
 import utilStyles from "./NavUtils.module.scss";
 import { CaretDownIcon } from "@radix-ui/react-icons";
 import { Cross1Icon, HamburgerMenuIcon } from "@radix-ui/react-icons";
-import { IconButton, Flex, Text } from "@radix-ui/themes";
+import { IconButton, Flex, Text, ScrollArea } from "@radix-ui/themes";
 import { useState } from "react";
 import { PRODUCTS_QUERYResult, SERVICES_QUERYResult } from "@/root/sanity.types";
+import Link from "next/link";
 
 interface NavBurgerProps {
   products: PRODUCTS_QUERYResult;
@@ -18,11 +19,13 @@ interface NavBurgerProps {
 interface CollapsibleMenuItemProps {
   category: string;
   items: PRODUCTS_QUERYResult | SERVICES_QUERYResult;
+  setOpenMenu: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function CollapsibleMenuItem({ 
   category,
   items,
+  setOpenMenu,
 }: CollapsibleMenuItemProps) {
   return (
     <Collapsible.Root>
@@ -50,6 +53,7 @@ function CollapsibleMenuItem({
             heading={item.title}
             image={item?.heroSection?.heroImage}
             hasImg={true}
+            onClick={setOpenMenu}
           />
         ))}
       </Collapsible.Content>
@@ -91,19 +95,24 @@ function NavBurger({
         <menu
           className={styles.NavBurgerContent}
         >
-          <CollapsibleMenuItem 
-            category="Products"
-            items={products}
-          />
-          <CollapsibleMenuItem
-            category="Services"
-            items={services}
-          />
-          <CardLink 
-            href="/about"
-            heading="About Us"
-            hasImg={false}
-          />
+          <ScrollArea>
+            <CollapsibleMenuItem
+              category="Products"
+              items={products}
+              setOpenMenu={setOpenMenu}
+            />
+            <CollapsibleMenuItem
+              category="Services"
+              items={services}
+              setOpenMenu={setOpenMenu}
+            />
+            <Link
+              href="/about"
+              className={styles.NavBurgerTrigger}
+            >
+              About us
+            </Link>
+          </ScrollArea>
         </menu>
       )}
     </nav>

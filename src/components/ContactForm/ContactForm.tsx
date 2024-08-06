@@ -65,7 +65,7 @@ export default function ContactForm({ isDialog }: { isDialog: boolean }) {
       setStatus({
         submitting: false,
         code: validateToken.status,
-        message: "Are you a robot?",
+        message: "Validation failed. Please refresh the page and try again.",
       });
       return;
     }
