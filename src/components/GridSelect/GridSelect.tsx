@@ -19,14 +19,16 @@ interface GridSelectProps {
     _rev: string;
     title?: string;
     slug?: Slug;
-    mainImage?: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
+    heroSection?: {
+      heroImage?: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+        };
+        alt?: string;
+        _type: "image";
       };
-      alt?: string;
-      _type: "image";
     };
     category?: "product" | "service";
     description?: string;
@@ -38,42 +40,43 @@ function GridSelect({
   category,
   columns
 }: GridSelectProps) {
+  
   return (
     <Grid
       columns={columns}
       gap="6"
     >
       {data.map((item) => (
-        <Link
-          key={item._id}
-          href={`/${category}/${item.slug?.current}`}
-          className={styles.Col}
-        >
-          <article
-            className={styles.Card}
+          <Link
+            key={item._id}
+            href={`/${category}/${item.slug?.current}`}
+            className={styles.Col}
           >
-            <ArrowTopRightIcon 
-              className={styles.Icon}
-              height={24}
-              width={24}
-            />
-            <Box
-              width="100%"
-              height="200px"
+            <article
+              className={styles.Card}
             >
-              <ImageBox>
-                <Image
-                  src={item.mainImage?.asset?._ref ? urlFor(item.mainImage.asset._ref).url() : PlaceholderImg}
-                  alt={item.mainImage?.alt ?? 'Product image'}
-                  fill
-                  sizes="100vw"
-                />
-              </ImageBox>
-            </Box>
-            <Heading className={styles.Text} as="h3" size="4">{item.title}</Heading>
-          </article>
-        </Link>
-      ))}
+              <ArrowTopRightIcon
+                className={styles.Icon}
+                height={24}
+                width={24}
+              />
+              <Box
+                width="100%"
+                height="200px"
+              >
+                <ImageBox>
+                  <Image
+                    src={item.heroSection?.heroImage?.asset?._ref ? urlFor(item.heroSection?.heroImage.asset._ref).url() : PlaceholderImg}
+                    alt={item.heroSection?.heroImage?.alt ?? 'Product image'}
+                    fill
+                    sizes="100vw"
+                  />
+                </ImageBox>
+              </Box>
+              <Heading className={styles.Text} as="h3" size="4">{item.title}</Heading>
+            </article>
+          </Link>
+        ))}
     </Grid>
   )
 }
