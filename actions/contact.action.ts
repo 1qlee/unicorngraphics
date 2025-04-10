@@ -19,7 +19,7 @@ export async function sendContactEmail(formData: FormData, isDialog: boolean) {
     const response = await resend.batch.send([
       {
         from: `Website Inquiry from ${data.name} <onboarding@resend.dev>`,
-        to: ['wonq33@gmail.com'],
+        to: ['jason@unicorngraphics.com'],
         subject: '[Contact] New message from ' + data.name,
         reply_to: data.email as string,
         react: React.createElement(ContactFormEmail, data),
@@ -28,7 +28,7 @@ export async function sendContactEmail(formData: FormData, isDialog: boolean) {
         from: `Unicorn Graphics <onboarding@resend.dev>`,
         to: [data.email],
         subject: 'We have received your message!',
-        reply_to: "wonq33@gmail.com",
+        reply_to: "jason@unicorngraphics.com",
         react: React.createElement(ContactFormConfirmEmail, data),
       }
     ]);
