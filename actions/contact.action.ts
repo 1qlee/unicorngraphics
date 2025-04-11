@@ -18,14 +18,14 @@ export async function sendContactEmail(formData: FormData, isDialog: boolean) {
   try {
     const response = await resend.batch.send([
       {
-        from: `Website Inquiry from ${data.name} <onboarding@resend.dev>`,
+        from: `Website Inquiry from ${data.name} <${data.email}>`,
         to: ['jason@unicorngraphics.com'],
         subject: '[Contact] New message from ' + data.name,
         reply_to: data.email as string,
         react: React.createElement(ContactFormEmail, data),
       },
       {
-        from: `Unicorn Graphics <onboarding@resend.dev>`,
+        from: `Unicorn Graphics <jason@unicorngraphics.com>`,
         to: [data.email],
         subject: 'We have received your message!',
         reply_to: "jason@unicorngraphics.com",
