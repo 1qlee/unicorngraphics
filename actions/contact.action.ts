@@ -18,7 +18,7 @@ export async function sendContactEmail(formData: FormData, isDialog: boolean) {
   try {
     const response = await resend.batch.send([
       {
-        from: `Website Inquiry from ${data.name} <${data.email}>`,
+        from: `Website Inquiry from <contact@unicorngraphics.com>`,
         to: ['jason@unicorngraphics.com'],
         subject: '[Contact] New message from ' + data.name,
         reply_to: data.email as string,
