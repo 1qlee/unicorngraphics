@@ -1,6 +1,5 @@
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
-import { PAGE_QUERYResult, BANNER_QUERYResult } from "@/root/sanity.types";
 
 import Hero from "@/components/Hero/Hero";
 import ImageBox from "@/components/ImageBox/ImageBox";
@@ -11,21 +10,29 @@ import { Grid, Section, Box } from "@radix-ui/themes";
 
 const TEXTBOX_MAX_WIDTH = { initial: "100%", md: "600px" };
 
-export default async function Page({ pageData, bannerData }: { pageData: PAGE_QUERYResult, bannerData: BANNER_QUERYResult }) {
+export default async function Page({ pageData, bannerData }) {
   function generateRandomImgSize() {
     const sizes = ['400x600', '800x400', '600x600', '400x800'];
     return sizes[Math.floor(Math.random() * sizes.length)];
   }
 
-  function splitArrayIntoChunks(arr: any[], chunkSize: number) {
-    const chunks = [];
-    for (let i = 0; i < arr.length; i += chunkSize) {
-      chunks.push(arr.slice(i, i + chunkSize));
+  // New function to distribute images sequentially into columns
+  function distributeImagesIntoColumns(imagesArray, numberOfColumns) {
+    if (!imagesArray || !imagesArray.length || numberOfColumns <= 0) {
+      return [];
     }
-    return chunks;
+    // Initialize an array of arrays, where each inner array represents a column
+    const columns = Array.from({ length: numberOfColumns }, () => []);
+
+    // Distribute images one by one into the columns
+    imagesArray.forEach((image, index) => {
+      columns[index % numberOfColumns].push(image);
+    });
+
+    return columns; // Example: [[img1, img5, img9], [img2, img6, img10], [img3, img7], [img4, img8]] for 4 columns
   }
 
-  const imageGridChunks = splitArrayIntoChunks(pageData?.imageGrid ?? [], 4);
+  const imageGridChunks = distributeImagesIntoColumns(pageData?.imageGrid ?? [], 4);
 
   return (
     <main>
@@ -53,7 +60,7 @@ export default async function Page({ pageData, bannerData }: { pageData: PAGE_QU
         <ResponsiveContainer>
           <Grid
             gap="6"
-            columns="repeat(auto-fit, minmax(300px, 1fr))"
+            columns={`repeat(4, minmax(300px, 1fr))`}
             align="start"
           >
             {imageGridChunks.map((chunk, index) => (

@@ -1,6 +1,7 @@
 import { PRODUCTS_QUERYResult, SERVICES_QUERYResult, SETTINGS_QUERYResult } from "@/root/sanity.types";
 import { Separator, Text, Container, Box, Grid, Flex, Heading, Link } from "@radix-ui/themes";
 import { CustomPortableText } from "../CustomPortableText/CustomPortableText";
+import Image from "next/image";
 
 interface FooterProps {
   products: PRODUCTS_QUERYResult,
@@ -26,7 +27,7 @@ function Footer({
   return (
     <Box
       asChild
-      pb="4"
+      p="4"
     >
       <footer>
         <Container
@@ -53,6 +54,14 @@ function Footer({
                   pMargin="1"
                   textColor="gray"
                   value={settings?.footerText ?? []}
+                />
+              </Box>
+              <Box mt="2">
+                <Image
+                  src="/images/mbe.png"
+                  alt="A descriptive caption for my image"
+                  width={160}
+                  height={160}
                 />
               </Box>
             </Flex>
