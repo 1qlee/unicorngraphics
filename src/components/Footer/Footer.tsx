@@ -1,34 +1,38 @@
-import { PRODUCTS_QUERYResult, SERVICES_QUERYResult, SETTINGS_QUERYResult } from "@/root/sanity.types";
-import { Separator, Text, Container, Box, Grid, Flex, Heading, Link } from "@radix-ui/themes";
+import {
+  PRODUCTS_QUERYResult,
+  SERVICES_QUERYResult,
+  SETTINGS_QUERYResult,
+} from "@/root/sanity.types";
+import {
+  Separator,
+  Text,
+  Container,
+  Box,
+  Grid,
+  Flex,
+  Heading,
+  Link,
+} from "@radix-ui/themes";
 import { CustomPortableText } from "../CustomPortableText/CustomPortableText";
 import Image from "next/image";
 
 interface FooterProps {
-  products: PRODUCTS_QUERYResult,
-  services: SERVICES_QUERYResult,
-  settings: SETTINGS_QUERYResult,
+  products: PRODUCTS_QUERYResult;
+  services: SERVICES_QUERYResult;
+  settings: SETTINGS_QUERYResult;
 }
 
 function FooterHeading({ children }: { children: React.ReactNode }) {
   return (
-    <Heading
-      as="h3"
-      size="3"
-      mb="2"
-    >{children}</Heading>
-  )
+    <Heading as="h3" size="3" mb="2">
+      {children}
+    </Heading>
+  );
 }
 
-function Footer({
-  products,
-  services,
-  settings,
-}: FooterProps) {
+function Footer({ products, services, settings }: FooterProps) {
   return (
-    <Box
-      asChild
-      p="4"
-    >
+    <Box asChild p="4">
       <footer>
         <Container
           px={{
@@ -36,14 +40,8 @@ function Footer({
             lg: "0",
           }}
         >
-          <Separator
-            size="4"
-            my="6"
-          />
-          <Grid
-            columns="repeat(auto-fit, minmax(160px, 1fr))"
-            gap="4"
-          >
+          <Separator size="4" my="6" />
+          <Grid columns="repeat(auto-fit, minmax(160px, 1fr))" gap="4">
             <Flex direction="column">
               <Text weight="bold">
                 &copy; {new Date().getFullYear()} Unicorn Graphics, Inc.
@@ -59,36 +57,38 @@ function Footer({
               <Box mt="2">
                 <Image
                   src="/images/mbe.png"
-                  alt="A descriptive caption for my image"
+                  alt="MBE Logo"
                   width={160}
                   height={160}
                 />
               </Box>
             </Flex>
-            <Flex
-              direction="column"
-            >
+            <Flex direction="column">
               <FooterHeading>Company</FooterHeading>
-              <Link
-                href="/about"
-                color="gray"
-                mb="1"
-              >
+              <Link href="/about" color="gray" mb="1">
                 About
               </Link>
+              <Link href="/contact" color="gray" mb="1">
+                Contact
+              </Link>
               <Link
-                href="/contact"
+                href="https://www.linkedin.com/company/unicorngraphics/"
                 color="gray"
                 mb="1"
               >
-                Contact
+                LinkedIn
+              </Link>
+              <Link
+                href="https://www.instagram.com/unicorn_graphics/"
+                color="gray"
+                mb="1"
+              >
+                Instagram
               </Link>
             </Flex>
-            <Flex
-              direction="column"
-            >
+            <Flex direction="column">
               <FooterHeading>Products</FooterHeading>
-              {products.map(product => (
+              {products.map((product) => (
                 <Link
                   href={`/products/${product?.slug?.current}`}
                   key={product._id}
@@ -99,11 +99,9 @@ function Footer({
                 </Link>
               ))}
             </Flex>
-            <Flex
-              direction="column"
-            >
+            <Flex direction="column">
               <FooterHeading>Services</FooterHeading>
-              {services.map(service => (
+              {services.map((service) => (
                 <Link
                   href={`/services/${service?.slug?.current}`}
                   key={service._id}
@@ -118,7 +116,7 @@ function Footer({
         </Container>
       </footer>
     </Box>
-  )
+  );
 }
 
-export default Footer
+export default Footer;

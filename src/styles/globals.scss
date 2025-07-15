@@ -76,7 +76,7 @@ h6 {
 }
 
 main {
-  padding-top: 114px;
+  padding-top: 72px;
   overflow-x: hidden;
 }
 
@@ -88,6 +88,10 @@ fieldset {
 
 strong {
   font-weight: 500;
+}
+
+button {
+  cursor: pointer;
 }
 
 @media screen and (max-width: 520px) {

@@ -39,28 +39,6 @@ export type SanityImageDimensions = {
   aspectRatio?: number;
 };
 
-export type SanityFileAsset = {
-  _id: string;
-  _type: "sanity.fileAsset";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  originalFilename?: string;
-  label?: string;
-  title?: string;
-  description?: string;
-  altText?: string;
-  sha1hash?: string;
-  extension?: string;
-  mimeType?: string;
-  size?: number;
-  assetId?: string;
-  uploadId?: string;
-  path?: string;
-  url?: string;
-  source?: SanityAssetSourceData;
-};
-
 export type Geopoint = {
   _type: "geopoint";
   lat?: number;
@@ -103,9 +81,9 @@ export type Banner = {
     alt?: string;
     _type: "image";
     _key: string;
-  } | ({
+  } | {
     _key: string;
-  } & Button)>;
+  } & Button>;
 };
 
 export type Button = {
@@ -162,9 +140,9 @@ export type Settings = {
     alt?: string;
     _type: "image";
     _key: string;
-  } | ({
+  } | {
     _key: string;
-  } & Button)>;
+  } & Button>;
 };
 
 export type BlockContent = Array<{
@@ -196,9 +174,9 @@ export type BlockContent = Array<{
   alt?: string;
   _type: "image";
   _key: string;
-} | ({
+} | {
   _key: string;
-} & Button)>;
+} & Button>;
 
 export type Page = {
   _id: string;
@@ -329,17 +307,25 @@ export type Home = {
   _rev: string;
   heroSection?: {
     heroContent?: BlockContent;
-    heroImage?: {
+    heroVideo?: {
       asset?: {
         _ref: string;
         _type: "reference";
         _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
       };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      alt?: string;
-      _type: "image";
+      alt?: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+      _type: "file";
     };
   };
   firstSection?: {
@@ -390,6 +376,28 @@ export type Home = {
     leftContent?: BlockContent;
     rightContent?: BlockContent;
   };
+};
+
+export type SanityFileAsset = {
+  _id: string;
+  _type: "sanity.fileAsset";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  originalFilename?: string;
+  label?: string;
+  title?: string;
+  description?: string;
+  altText?: string;
+  sha1hash?: string;
+  extension?: string;
+  mimeType?: string;
+  size?: number;
+  assetId?: string;
+  uploadId?: string;
+  path?: string;
+  url?: string;
+  source?: SanityAssetSourceData;
 };
 
 export type SanityImageCrop = {
@@ -449,7 +457,7 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Banner | Button | Settings | BlockContent | Page | Slug | About | Contact | Home | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | Geopoint | Banner | Button | Settings | BlockContent | Page | Slug | About | Contact | Home | SanityFileAsset | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: PAGE_QUERY
@@ -637,9 +645,9 @@ export type SETTINGS_QUERYResult = {
     alt?: string;
     _type: "image";
   };
-  footerText?: Array<({
+  footerText?: Array<{
     _key: string;
-  } & Button) | {
+  } & Button | {
     children?: Array<{
       marks?: Array<string>;
       text?: string;
@@ -671,76 +679,86 @@ export type SETTINGS_QUERYResult = {
   }>;
 } | null;
 // Variable: HOME_QUERY
-// Query: *[_type == "home"][0]
+// Query: *[_type == "home"][0] {    // Standard document metadata fields    _id,    _type,    _createdAt,    _updatedAt,    _rev,    // HERO SECTION    heroSection {      heroContent, // blockContent field      heroVideo {        asset-> { // Dereference the video file asset          url,          mimeType,          playbackId, // Useful if you have Mux integration          originalFilename,          size,        },        alt { // This is the image 'alt' field nested in heroVideo          asset-> { // Dereference the image asset for the thumbnail            url,            metadata {              lqip,              dimensions { width, height },            },          },        },      },    },    // FIRST SECTION    firstSection {      leftContent, // blockContent field      rightContent, // blockContent field      gridContent {        content[] { // Array of objects          _key, // Important for React list keys          heading,          text,        },      },    },    // SECOND SECTION    secondSection {      leftContent, // blockContent field      rightContent, // blockContent field      slider[] { // Array of objects        _key, // Important for React list keys        image {          asset-> { // Dereference the image asset for client images            url,            metadata {              lqip,              dimensions { width, height },            },          },        },        title, // String field for hover text        alt,   // String field for alt text      },    },    // THIRD SECTION    thirdSection {      leftContent, // blockContent field      rightContent, // blockContent field      // NOTE: Your description says "This section will display all products.      // To edit products, go to the 'Product Pages' tab in the sidebar."      // This implies products are separate documents. If you want to list      // specific product details *here*, you'd need to query them separately      // or add a reference field to an array of products here.      // For now, I'm assuming this section just has content for introduction.    },    // FOURTH SECTION    fourthSection {      leftContent, // blockContent field      rightContent, // blockContent field      grid[] { // Array of objects        _key, // Important for React list keys        heading,        text,      },    },    // FIFTH SECTION    fifthSection {      leftContent, // blockContent field      rightContent, // blockContent field      // NOTE: Similar to the third section, if services are separate documents,      // you'd typically query them separately or add references here.    },    // You might also have a 'slug' field on your home document itself if it's    // accessible via a unique URL other than just being the root home page.    // slug {    //   current    // }  }
 export type HOME_QUERYResult = {
   _id: string;
   _type: "home";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  heroSection?: {
-    heroContent?: BlockContent;
-    heroImage?: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      alt?: string;
-      _type: "image";
-    };
-  };
-  firstSection?: {
-    leftContent?: BlockContent;
-    rightContent?: BlockContent;
-    gridContent?: {
-      content?: Array<{
-        heading?: string;
-        text?: string;
+  heroSection: {
+    heroContent: BlockContent | null;
+    heroVideo: {
+      asset: {
+        url: string | null;
+        mimeType: string | null;
+        playbackId: null;
+        originalFilename: string | null;
+        size: number | null;
+      } | null;
+      alt: {
+        asset: {
+          url: string | null;
+          metadata: {
+            lqip: string | null;
+            dimensions: {
+              width: number | null;
+              height: number | null;
+            } | null;
+          } | null;
+        } | null;
+      } | null;
+    } | null;
+  } | null;
+  firstSection: {
+    leftContent: BlockContent | null;
+    rightContent: BlockContent | null;
+    gridContent: {
+      content: Array<{
         _key: string;
-      }>;
-    };
-  };
-  secondSection?: {
-    leftContent?: BlockContent;
-    rightContent?: BlockContent;
-    slider?: Array<{
-      image?: {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        _type: "image";
-      };
-      title?: string;
-      alt?: string;
+        heading: string | null;
+        text: string | null;
+      }> | null;
+    } | null;
+  } | null;
+  secondSection: {
+    leftContent: BlockContent | null;
+    rightContent: BlockContent | null;
+    slider: Array<{
       _key: string;
-    }>;
-  };
-  thirdSection?: {
-    leftContent?: BlockContent;
-    rightContent?: BlockContent;
-  };
-  fourthSection?: {
-    leftContent?: BlockContent;
-    rightContent?: BlockContent;
-    grid?: Array<{
-      heading?: string;
-      text?: string;
+      image: {
+        asset: {
+          url: string | null;
+          metadata: {
+            lqip: string | null;
+            dimensions: {
+              width: number | null;
+              height: number | null;
+            } | null;
+          } | null;
+        } | null;
+      } | null;
+      title: string | null;
+      alt: string | null;
+    }> | null;
+  } | null;
+  thirdSection: {
+    leftContent: BlockContent | null;
+    rightContent: BlockContent | null;
+  } | null;
+  fourthSection: {
+    leftContent: BlockContent | null;
+    rightContent: BlockContent | null;
+    grid: Array<{
       _key: string;
-    }>;
-  };
-  fifthSection?: {
-    leftContent?: BlockContent;
-    rightContent?: BlockContent;
-  };
+      heading: string | null;
+      text: string | null;
+    }> | null;
+  } | null;
+  fifthSection: {
+    leftContent: BlockContent | null;
+    rightContent: BlockContent | null;
+  } | null;
 } | null;
 // Variable: CONTACT_QUERY
 // Query: *[_type == "contact"][0]
@@ -813,9 +831,9 @@ export type BANNER_QUERYResult = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  content?: Array<({
+  content?: Array<{
     _key: string;
-  } & Button) | {
+  } & Button | {
     children?: Array<{
       marks?: Array<string>;
       text?: string;
@@ -846,3 +864,18 @@ export type BANNER_QUERYResult = {
     _key: string;
   }>;
 } | null;
+
+// Query TypeMap
+import "@sanity/client";
+declare module "@sanity/client" {
+  interface SanityQueries {
+    "*[_type == \"page\" && slug.current == $slug][0]": PAGE_QUERYResult;
+    "*[_type == \"page\" && category == \"product\"]": PRODUCTS_QUERYResult;
+    "*[_type == \"page\" && category == \"service\"]": SERVICES_QUERYResult;
+    "*[_type == \"settings\"][0]": SETTINGS_QUERYResult;
+    "\n  *[_type == \"home\"][0] {\n    // Standard document metadata fields\n    _id,\n    _type,\n    _createdAt,\n    _updatedAt,\n    _rev,\n\n    // HERO SECTION\n    heroSection {\n      heroContent, // blockContent field\n      heroVideo {\n        asset-> { // Dereference the video file asset\n          url,\n          mimeType,\n          playbackId, // Useful if you have Mux integration\n          originalFilename,\n          size,\n        },\n        alt { // This is the image 'alt' field nested in heroVideo\n          asset-> { // Dereference the image asset for the thumbnail\n            url,\n            metadata {\n              lqip,\n              dimensions { width, height },\n            },\n          },\n        },\n      },\n    },\n\n    // FIRST SECTION\n    firstSection {\n      leftContent, // blockContent field\n      rightContent, // blockContent field\n      gridContent {\n        content[] { // Array of objects\n          _key, // Important for React list keys\n          heading,\n          text,\n        },\n      },\n    },\n\n    // SECOND SECTION\n    secondSection {\n      leftContent, // blockContent field\n      rightContent, // blockContent field\n      slider[] { // Array of objects\n        _key, // Important for React list keys\n        image {\n          asset-> { // Dereference the image asset for client images\n            url,\n            metadata {\n              lqip,\n              dimensions { width, height },\n            },\n          },\n        },\n        title, // String field for hover text\n        alt,   // String field for alt text\n      },\n    },\n\n    // THIRD SECTION\n    thirdSection {\n      leftContent, // blockContent field\n      rightContent, // blockContent field\n      // NOTE: Your description says \"This section will display all products.\n      // To edit products, go to the 'Product Pages' tab in the sidebar.\"\n      // This implies products are separate documents. If you want to list\n      // specific product details *here*, you'd need to query them separately\n      // or add a reference field to an array of products here.\n      // For now, I'm assuming this section just has content for introduction.\n    },\n\n    // FOURTH SECTION\n    fourthSection {\n      leftContent, // blockContent field\n      rightContent, // blockContent field\n      grid[] { // Array of objects\n        _key, // Important for React list keys\n        heading,\n        text,\n      },\n    },\n\n    // FIFTH SECTION\n    fifthSection {\n      leftContent, // blockContent field\n      rightContent, // blockContent field\n      // NOTE: Similar to the third section, if services are separate documents,\n      // you'd typically query them separately or add references here.\n    },\n\n    // You might also have a 'slug' field on your home document itself if it's\n    // accessible via a unique URL other than just being the root home page.\n    // slug {\n    //   current\n    // }\n  }\n": HOME_QUERYResult;
+    "*[_type == \"contact\"][0]": CONTACT_QUERYResult;
+    "*[_type == \"about\"][0]": ABOUT_QUERYResult;
+    "*[_type == \"banner\"][0]": BANNER_QUERYResult;
+  }
+}

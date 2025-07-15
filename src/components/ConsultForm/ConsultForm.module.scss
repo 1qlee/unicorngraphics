@@ -1,0 +1,22 @@
+.Form {
+  margin: 0 auto;
+  max-width: 600px;
+  background-color: white;
+  padding: 32px;
+  border-radius: 16px;
+  border: 1px solid var(--accent-9);
+  box-shadow: 0 6px 0 3px var(--accent-6);
+}
+
+.Field {
+  flex: 1;
+  &:not(:last-child) {
+    margin-bottom: var(--space-4);
+  }
+}
+
+.Control {
+  [data-invalid] {
+    background-color: #feebec !important;
+  }
+}

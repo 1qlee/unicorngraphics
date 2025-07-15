@@ -4,6 +4,7 @@
 }
 
 .Item {
-  padding-top: var(--space-5);
-  border-top: 1px solid var(--gray-12);
+  background-color: var(--gray-3);
+  padding: 32px;
+  border-radius: 8px;
 }

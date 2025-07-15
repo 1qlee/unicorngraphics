@@ -6,7 +6,7 @@ import {
   Hr,
   Preview,
   Section,
-  Text
+  Text,
 } from "@react-email/components";
 
 interface ContactFormEmailProps {
@@ -14,6 +14,8 @@ interface ContactFormEmailProps {
   email: string | null;
   name: string | null;
   phone: string | null;
+  deadline: string | null;
+  budget: string | null;
 }
 
 export default function ContactFormEmail(data: ContactFormEmailProps) {
@@ -22,17 +24,17 @@ export default function ContactFormEmail(data: ContactFormEmailProps) {
       <Head />
       <Preview>You have a new contact form submission</Preview>
       <Body>
-        <Heading>
-          Message from: {data.name}
-        </Heading>
-        <Text>Reply to: {data.email} or call: {data.phone}</Text>
+        <Heading>Message from: {data.name}</Heading>
+        <Text>
+          Reply to: {data.email} {data.phone && `or call: ${data.phone}`}
+        </Text>
         <Hr />
         <Section>
-          <Text>
-            {data.message}
-          </Text>
+          <Text>{data.message}</Text>
+          <Text>{data.deadline && `Deadline: ${data.deadline}`}</Text>
+          <Text>{data.budget && `Budget: ${data.budget}`}</Text>
         </Section>
       </Body>
     </Html>
-  )
+  );
 }
