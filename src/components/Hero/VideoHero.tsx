@@ -24,9 +24,9 @@ function VideoHero({ data }: HeroProps) {
   return (
     <Section py="0">
       <ResponsiveContainer flexGrow="1" flexShrink="1">
-        <Flex direction="row" wrap="wrap">
+        <Flex direction="row" wrap="wrap" gap="4">
           {heroVideoUrl ? (
-            <Flex p="4" flexBasis="66%" flexGrow="1" flexShrink="1">
+            <Flex flexBasis="64%" flexGrow="1" flexShrink="1">
               <video
                 autoPlay // Start playing automatically
                 loop // Loop the video
@@ -69,7 +69,7 @@ function VideoHero({ data }: HeroProps) {
             justify="center"
             direction="column"
           >
-            <Box p="4" className={styles.Content}>
+            <Box className={styles.Content}>
               {heroContent && (
                 <CustomPortableText align="left" value={heroContent} />
               )}
