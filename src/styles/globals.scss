@@ -90,8 +90,8 @@ strong {
   font-weight: 500;
 }
 
-button {
-  cursor: pointer;
+.radix-themes {
+  --cursor-button: pointer;
 }
 
 @media screen and (max-width: 520px) {

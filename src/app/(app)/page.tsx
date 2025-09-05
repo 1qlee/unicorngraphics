@@ -90,20 +90,6 @@ export default async function Page() {
           </ResponsiveContainer>
         </PaddedSection>
       )}
-      {/* SECOND SECTION */}
-      {data?.secondSection && (
-        <PaddedSection style={{ backgroundColor: "var(--accent-3)" }}>
-          <ResponsiveContainer>
-            <Box maxWidth={TEXTBOX_MAX_WIDTH} mx="auto">
-              <CustomPortableText
-                align="center"
-                value={data?.secondSection?.leftContent ?? []}
-              />
-            </Box>
-            <ConsultForm isDialog={false} />
-          </ResponsiveContainer>
-        </PaddedSection>
-      )}
       {/* THIRD SECTION */}
       {data?.thirdSection && (
         <PaddedSection>
@@ -170,6 +156,20 @@ export default async function Page() {
                 </Box>
               ))}
             </Grid>
+          </ResponsiveContainer>
+        </PaddedSection>
+      )}
+      {/* SECOND SECTION - CONSULTATION FORM */}
+      {data?.secondSection && (
+        <PaddedSection style={{ backgroundColor: "var(--accent-3)" }}>
+          <ResponsiveContainer>
+            <Box maxWidth={TEXTBOX_MAX_WIDTH} mx="auto">
+              <CustomPortableText
+                align="center"
+                value={data?.secondSection?.leftContent ?? []}
+              />
+            </Box>
+            <ConsultForm isDialog={false} />
           </ResponsiveContainer>
         </PaddedSection>
       )}
